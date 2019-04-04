@@ -8,7 +8,7 @@
 </head>
 <body>
     <script>
-        // new 操作
+        // new 操作  https://www.cnblogs.com/shuizhongyu111/p/7355383.html
         // 它创建了一个全新的对象。
         // 它会被执行[[Prototype]]（也就是__proto__）链接。
         // 它使this指向新创建的对象。。
@@ -23,16 +23,18 @@
           if(func.prototype !== null){
               res.__proto__ = func.prototype
           }
+          console.log('res',res)
           var ret = func.apply(res,Array.prototype.slice.call(arguments,1));
+          console.log('res',res)
           if(typeof ret == 'object' || typeof ret == 'function' && typeof ret !== null){
               return ret;
           }
           return res;
        }
-       var obj01 = new Person();
-    //    console.log(obj01)
+       var obj01 = new Person('Tmac-1','火箭队');
+       console.log(obj01)
        var obj02 = New(Person,'Tmac-1','火箭队')
-    //    console.log(obj02)
+       console.log(obj02)
 
 
     // call 和 apply 的实现
@@ -55,6 +57,8 @@
     //    console.log(job,sex,this.name)
     // }
     // boo.call2(foo,"火箭","男")
+    // console.log('foo',foo)
+
 
     // bind的实现  https://blog.csdn.net/smallsun_229/article/details/80298147
     Function.prototype.bind2 = function(content) {
