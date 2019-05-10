@@ -8,6 +8,8 @@
 </head>
 <body>
     1111
+    <a href="https://juejin.im/post/5b6161e6f265da0f8145fb72">promiseA+</a>
+    <a href="https://github.com/forthealllight/blog/issues/4"> 参考链接 </a>
     <script>
         //  var p1 = new Promise((resolve,reject)=>{
         //      resolve('成功')
@@ -134,7 +136,7 @@
              _this.status = 'pending';
              _this.value = undefined;
              _this.reason = undefined;
-             _this.onFullfilledArr = [];
+             _this.onFullfilledArr = []; 
              _this.onRejectedArr = [];
              function resolve (val){
                 if(_this.status == 'pending'){
@@ -164,44 +166,52 @@
                  case 'pending' :
                  promise02 = new MyPromise( function(resolve,reject){
                     _this.onFullfilledArr.push( function(){
-                        onFullfilled(_this.value);
+                         onFullfilled(_this.value);
                     } )
                     _this.onRejectedArr.push( function(){
-                     onRejected(_this.reason)
+                        onRejected(_this.reason)
                     })
                  } )
-
                  case 'resolved':
-                    onFullfilled(_this.value);
+                 promise02 = new MyPromise( function(resolve,reject){
+                    var temple = onFullfilled(_this.value);
+                    resolve(temple)
+                 } )
                  break;
                  case 'rejected':
-                    onRejected(_this.reason);
+                 promise02 = new MyPromise( function(resolve,reject){
+                    var temple = onRejected(_this.reason);
+                    resolve(temple)
+                 } )
                  break;
                  default:
              }
              return promise02;
          }
-        // var p3 = new MyPromise((resolve,reject)=>{
-        //     setTimeout(()=>{resolve(2000)},0)
-        // })
-        // p3.then((res)=>{
-        //       console.log(res)
-        // }).then(()=>{
-        //     console.log('第二次then')
-        // })
-
-        var p4 = new Promise((resolve,reject)=>{
-            setTimeout(()=>{
-              resolve(1000)
-              console.log('哈哈哈')
-            },0)
-        })
-        p4.then((res)=>{
-              console.log('1')
-              console.log(res)
-              console.log('2')
-        }).then(()=>{
-            console.log('第二次then')
+       
+       let p1 = new MyPromise((resolve,reject)=>{
+           resolve(1)
+       })
+       p1.then((res)=>{
+           console.log('first then',res)
+           return 2;
+       }).then((res)=>{
+           console.log('second then',res)
+       })
+       p1.then((res)=>{
+           console.log('3 then',res)
+       })
+       
+       const pp1 = new Promise((resolve,reject)=>{
+           setTimeout(()=>{reject(new Error('Fail'))},1000)
+       })
+       const pp2 = new Promise((resolve,reject)=>{
+           setTimeout(()=>{resolve(pp1)},100)
+       })
+        pp2.then((res)=>{
+            console.log('success')
+        }).catch((err)=>{
+            console.log(err)
         })
     </script>
 </html>
