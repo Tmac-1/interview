@@ -158,6 +158,42 @@
              }
              constructor( resolve,reject )
          }
+         function resolvePromise(promise,x,resolve,reject){
+            //  console.log(promise,x,resolve,reject)
+                if(promise===x){
+                    throw new TypeError("type error")
+                }
+                let isUsed;
+                if(x!==null&&(typeof x==="object"||typeof x==="function")){
+                    // alert(22)
+                    try{
+                        let then=x.then;
+                        if(typeof then==="function"){
+                        //是一个promise的情况
+                        then.call(x,function(y){
+                            if(isUsed)return;
+                            isUsed=true;
+                            resolvePromise(promise,y,resolve,reject);
+                        },function(e){
+                            if(isUsed)return;
+                            isUsed=true;
+                            reject(e);
+                        })
+                        }else{
+                        //仅仅是一个函数或者是对象
+                        resolve(x)
+                        }
+                    }catch(e){
+                        if(isUsed)return;
+                        isUsed=true;
+                        reject(e);
+                    }
+                }else{
+                    //返回的基本类型，直接resolve
+                    resolve(x)
+                }
+         }
+
          MyPromise.prototype.then = function ( onFullfilled,onRejected ){
              var _this = this;
              var promise02 = undefined;
@@ -166,22 +202,52 @@
                  case 'pending' :
                  promise02 = new MyPromise( function(resolve,reject){
                     _this.onFullfilledArr.push( function(){
-                         onFullfilled(_this.value);
+                        setTimeout(function(){
+                                try{
+                                    let temple=onFullfilled(_this.value);
+                                    resolvePromise(promise02,temple,resolve,reject);
+                                    }catch(e){
+                                    reject(e) //error catch
+                                    }
+                        })
                     } )
                     _this.onRejectedArr.push( function(){
-                        onRejected(_this.reason)
+                        setTimeout(function(){
+                            try{
+                                let temple=onRejected(_this.reason);
+                                resolvePromise(promise02,temple,resolve,reject);
+                                }catch(e){
+                                reject(e)// error catch
+                            }
+                      })
                     })
                  } )
                  case 'resolved':
                  promise02 = new MyPromise( function(resolve,reject){
-                    var temple = onFullfilled(_this.value);
-                    resolve(temple)
+                    // var temple = onFullfilled(_this.value);
+                    // resolve(temple)
+                    setTimeout(function(){
+                        try{
+                            let temple=onFullfilled(_this.value);
+                            //将上次一then里面的方法传递进下一个Promise状态
+                            resolvePromise(promise02,temple,resolve,reject);
+                            }catch(e){
+                            reject(e);//error catch
+                        }
+                   })
                  } )
                  break;
                  case 'rejected':
                  promise02 = new MyPromise( function(resolve,reject){
-                    var temple = onRejected(_this.reason);
-                    resolve(temple)
+                    setTimeout(function(){
+                        try{
+                        let temple=onRejected(_this.reason);
+                        //将then里面的方法传递到下一个Promise的状态里
+                        resolvePromise(promise02,temple,resolve,reject);
+                        }catch(e){
+                        reject(e);
+                        }
+                    })
                  } )
                  break;
                  default:
@@ -189,29 +255,37 @@
              return promise02;
          }
        
-       let p1 = new MyPromise((resolve,reject)=>{
-           resolve(1)
-       })
-       p1.then((res)=>{
-           console.log('first then',res)
-           return 2;
-       }).then((res)=>{
-           console.log('second then',res)
-       })
-       p1.then((res)=>{
-           console.log('3 then',res)
-       })
-       
-       const pp1 = new Promise((resolve,reject)=>{
-           setTimeout(()=>{reject(new Error('Fail'))},1000)
-       })
-       const pp2 = new Promise((resolve,reject)=>{
-           setTimeout(()=>{resolve(pp1)},100)
-       })
-        pp2.then((res)=>{
-            console.log('success')
-        }).catch((err)=>{
-            console.log(err)
+    //    let p1 = new MyPromise((resolve,reject)=>{
+    //        resolve(1)
+    //    })
+    //    p1.then((res)=>{
+    //        console.log('first then',res)
+    //        return 2;
+    //    }).then((res)=>{
+    //        console.log('second then',res)
+    //    })
+ 
+    var p=new MyPromise(function(resolve,reject){
+            resolve("初始化promise")
         })
+       p.then(function(){
+          return new MyPromise(function(resolve,reject){
+              resolve("then里面的promise返回值")
+          })
+          }).then(function(x){
+              console.log(x)
+       })
+
+    //    const pp1 = new MyPromise((resolve,reject)=>{
+    //        setTimeout(()=>{reject(new Error('Fail'))},1000)
+    //    })
+    //    const pp2 = new Promise((resolve,reject)=>{
+    //        setTimeout(()=>{resolve(pp1)},100)
+    //    })
+    //     pp2.then((res)=>{
+    //         console.log('success',res)
+    //     }).catch((err)=>{
+    //         console.log(err)
+    //     })
     </script>
 </html>
