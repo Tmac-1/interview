@@ -138,6 +138,41 @@
     //  console.log(ret.toString())
     //  console.log( YAxisPoint.prototype.constructor  )
 
+    // 红绿灯问题Promise
+    // function red(){
+    //     console.log('red');
+    // }
+    // function green(){
+    //     console.log('green');
+    // }
+    // function yellow(){
+    //     console.log('yellow');
+    // }
+    // var light = function(timmer, cb){
+    //     return new Promise(function(resolve, reject) {
+    //         console.log('light')
+    //         setTimeout(function() {
+    //             cb();
+    //             resolve();
+    //         }, timmer);
+    //     });
+    // };
+    // var step = function() {
+    //     Promise.resolve().then(function(){
+    //         // console.log('111')
+    //         return light(3000, red);
+    //     }).then(function(){
+    //         // console.log('222')
+    //         return light(2000, green);
+    //     }).then(function(){
+    //         // console.log('333')
+    //         return light(1000, yellow);
+    //     }).then(function(){
+    //         step();
+    //     });
+    // }
+    // step();
+
     </script>
 </body>
 </html>
