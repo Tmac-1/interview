@@ -14,5 +14,42 @@
         <p> 数组去重 [...new Set(array)]</p>
         <p> Map 更多对应“值-值”对</p>
     </section>
+    <section>
+        <h4> Object.assign() </h4>
+        <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/assign"> 参考地址 </a>
+        <p>Object.assign() 方法用于将所有可枚举属性的值从一个或多个源对象复制到目标对象。它将返回目标对象。</p>
+        <p style="color:red;">继承属性和不可枚举属性是不能拷贝的</p>
+    </section>
+    <section>
+        <h4> Object.create() </h4>
+        <p> Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的__proto__ </p>
+    </section>
+    <script>
+        const target = { a: 1, b: 2 };
+        const source = { b: 4, c: 5 };
+        const returnedTarget = Object.assign(target, source);
+        console.log(target);
+        // expected output: Object { a: 1, b: 4, c: 5 }
+        console.log(returnedTarget);
+        // expected output: Object { a: 1, b: 4, c: 5 }   
+        // 复制一个对象 （注意：Object.assign()只能实现对一个对象的浅拷贝）
+        const obj = { a: 1 };
+        const copy = Object.assign({}, obj);
+        console.log(copy); // { a: 1 }
+
+
+        const person = {
+        isHuman: false,
+        printIntroduction: function () {
+            console.log(`My name is ${this.name}. Am I human? ${this.isHuman}`);
+          }
+        };
+       const me = Object.create(person);
+       me.name = "Matthew"; // "name" is a property set on "me", but not on "person"
+       me.isHuman = true; // inherited properties can be overwritten
+       me.printIntroduction();
+      // expected output: "My name is Matthew. Am I human? true"
+
+    </script>
 </body>
 </html>

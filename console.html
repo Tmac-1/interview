@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <section>
+        <h3>作用域</h3>
+        <p>作用域是指源代码中定义变量的区域</p>
+        <p>作用域规定的如何查找变量，也就是确定当前执行代码对变量的访问权限</p>
+        <p>JS采用词法作用域，也就是静态作用域</p>
+        <ul>
+            <li>JS采用的是词法作用域，函数的作用域在函数定义的时候就决定了。</li>
+            <li>和词法作用域相对的是动态作用域，函数的作用域实在函数调用的时候决定的。 </li>
+        </ul>
+    </section>
+    <section>
+        <h3>执行上下文</h3>
+        <p>当JS遇到一段可执行代码（executable code）时候，会创建对应的的执行上下文 （ execution context ）</p>
+        <p>对于每个执行上下文，都有三个重要属性</p>
+        <ul>
+            <li> 变量对象（Variable object , VO）: 
+              <p>变量对象是与执行上下文相关的数据作用域，存贮了在上下文中定义的变量和函数声明。  </p>
+              <p>因为不同的执行上下文下的变量对象稍有不同，分为全局上下文的变量对象和函数上下文变量对象。</p>
+              <p>在函数上下文中，我们用活动对象（activation object,AO）来表示变量对象。 </p>
+            </li>
+            <li> 作用域链（Scope chain）</li>
+            <li> this </li>
+        </ul>
+        <h3>执行过程</h3>
+        <p>执行上下文的代码会分成两个阶段进行处理：分析和处理</p>
+        <ul>
+            <li>1.进入执行上下文</li>
+            <li>2.代码执行</li>
+        </ul>
+        <h3>进入执行上下文</h3>
+        <p>进入执行上下文时，这时候还没执行代码。</p>
+        <p>变量对象会包括：</p>
+        <ul>
+            <li>
+                <p>1.函数所有的形参（如果是函数上下文）</p>
+                <p>由名称和对应值组成的一个变量对象的属性被创建</p>
+                <p>没有实参，属性值设为underfinded</p>
+            </li>
+            <li>
+                <p>2.函数声明</p>
+                <p>由名称和对应值（函数对象（function-object））组成一个变量对象的属性被创建</p>
+                <p>如果变量对象已存在相同名称的属性，则完全替换这个属性</p>
+            </li>
+            <li>
+                <p>3.变量声明</p>
+                <p>由名称和对应值（underfinded）租成一个变量对象的属性被创建</p>
+                <p>如果变量名称跟已经声明的形式参数或函数相同，则变量声明不会干扰已存在的这类属性</p>
+            </li>
+        </ul>
+    </section>
+</body>
+<script>
+    // function foo() {
+    //     console.log(value);
+    // }
+    // function bar() {
+    //     var value = 2;
+    //     foo();
+    // }
+    // var value = 1;
+    // bar();
+
+
+    // var a= 1;
+    // if(!(b in window)){
+    //     var b = 2;
+    //     a += 1;
+    // }else{
+    //     a += 2;
+    // }
+    // console.log(a)
+    // console.log(b)
+
+    // var a= undefined;
+    // a = 1;
+    // var b = undefined;
+    // if(!(b in window)){
+    //     b = 2;
+    //     a += 1;
+    // }else{
+    //     a += 2;
+    // }
+    // console.log(a)
+    // console.log(b)
+</script>
+</html>
