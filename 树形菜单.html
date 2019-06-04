@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+   <h1>js 生成树形菜单</h1>
+   <a href="https://blog.csdn.net/u013373006/article/details/82108873"> 参考链接 </a>
+   <a href="https://zhidao.baidu.com/question/1511885715203308100.html"> 节点查找 </a>
+<body>
+    <script>
+    var data = [
+        { id: 1, name: "办公管理", pid: 0 },
+        { id: 2, name: "请假申请", pid: 1 },
+        { id: 3, name: "出差申请", pid: 1 },
+        { id: 4, name: "请假记录", pid: 2 },
+        { id: 5, name: "系统设置", pid: 0 },
+        { id: 6, name: "权限管理", pid: 5 },
+        { id: 7, name: "用户角色", pid: 6 },
+        { id: 8, name: "菜单设置", pid: 6 },
+    ]
+
+    function toTree(data){
+        var map = {};
+        data.forEach(item => {
+            map[item.id] = item;
+        });
+        var val = [];
+        data.forEach( item =>{
+            var parent = map[item.pid];
+            if(parent){
+                ( parent.children || (parent.children = []) ).push(item)
+            }else{
+               val.push(item)
+            }
+        } )
+        // console.log(map)
+        return val;
+    }
+    console.log( toTree( data ) )
+    
+    var a = [{ "id": "0000", "text": "R1", "children": [{ "id": "8978", "text": "Aad", "children": [{ "id": "2312",
+    "text": "adaada", "children": [{ "id": "5154", "text": "asdsa" }] }, { "id": "4544", "text": "afasf", "children": [{
+    "id": "5236", "text": "afasf" }, { "id": "2328", "text": "afasf" }] }] }, { "id": "7867", "text": "R2", "children":
+    [{ "id": "8767", "text": "afasf", "children": [{ "id": "2016", "text": "afafa" }, { "id": "2017", "text": "afasd" }]
+    }, { "id": "7657", "text": "h", "children": [{ "id": "7867", "text": "afras" }] }] }] }];
+
+    var json = [];
+    function findChild(initData,id){
+        for( var i=0;i<initData.length;i++ ){
+            if(  initData[i].id == id ){
+                // console.log( initData[i] )
+                // return initData[i];
+              json.push(initData[i])
+            }else{
+                if( initData[i].hasOwnProperty('children') ){
+                    findChild(initData[i].children,id)
+                }
+            } 
+        }
+    }
+    console.log(findChild(a,"5154")) ;
+    console.log(json)
+    </script>
+</body>
+</html>
