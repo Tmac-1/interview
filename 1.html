@@ -6,8 +6,27 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+   <input id="file" type="file" name="file"/>
 <body>
     <script>
+       document.getElementById('file').onchange = function(e){
+           console.log(e.target.value)
+           console.log( document.getElementById('file').files)
+           var MyTest = document.getElementById('file').files[0]
+           var reader = new FileReader();
+            reader.readAsDataURL(MyTest);
+            reader.onload = function(theFile) {
+            　　var image = new Image();
+            image.src = theFile.target.result;
+            image.onload = function() {
+            　　alert("图片的宽度为"+this.width+",长度为"+this.height);
+            };
+            };
+       }
+       
+
+
+ 
         // new 操作  https://www.cnblogs.com/shuizhongyu111/p/7355383.html
         // 它创建了一个全新的对象。
         // 它会被执行[[Prototype]]（也就是__proto__）链接。
