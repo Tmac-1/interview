@@ -33,27 +33,27 @@
         // 它使this指向新创建的对象。。
         // 通过new创建的每个对象将最终被[[Prototype]]链接到这个函数的prototype对象上。
         // 如果函数没有返回对象类型Object(包含Functoin, Array, Date, RegExg, Error)，那么new表达式中的函数调用将返回该对象引用。
-        function Person(name,job){
-            this.name = name;
-            this.job = job
-        }
-        function New(func) {
-          var res = {};
-          if(func.prototype !== null){
-              res.__proto__ = func.prototype
-          }
-          console.log('res',res)
-          var ret = func.apply(res,Array.prototype.slice.call(arguments,1));
-          console.log('res',res)
-          if(typeof ret == 'object' || typeof ret == 'function' && typeof ret !== null){
-              return ret;
-          }
-          return res;
-       }
-       var obj01 = new Person('Tmac-1','火箭队');
-       console.log(obj01)
-       var obj02 = New(Person,'Tmac-1','火箭队')
-       console.log(obj02)
+    //     function Person(name,job){
+    //         this.name = name;
+    //         this.job = job
+    //     }
+    //     function New(func) {
+    //       var res = {};
+    //       if(func.prototype !== null){
+    //           res.__proto__ = func.prototype
+    //       }
+    //       console.log('res',res)
+    //       var ret = func.apply(res,Array.prototype.slice.call(arguments,1));
+    //       console.log('res',res)
+    //       if(typeof ret == 'object' || typeof ret == 'function' && typeof ret !== null){
+    //           return ret;
+    //       }
+    //       return res;
+    //    }
+    //    var obj01 = new Person('Tmac-1','火箭队');
+    //    console.log(obj01)
+    //    var obj02 = New(Person,'Tmac-1','火箭队')
+    //    console.log(obj02)
 
 
     // call 和 apply 的实现
@@ -62,75 +62,47 @@
     // 执行&删除这个函数
     // 指定this到函数并传入给定参数执行函数
     // 如果不传入参数，默认指向为 window
-    // Function.prototype.call2 = function( content = window ){
-    //     content.fn = this;
-    //     var arg = [...arguments].slice(1);
-    //     let result = content.fn(...arg);
-    //     delete content.fn;
-    //     return result;
-    // }
-    // var foo = {
-    //     name:'Tmac-1'
-    // }
-    // function boo(job,sex){
-    //    console.log(job,sex,this.name)
-    // }
-    // boo.call2(foo,"火箭","男")
-    // console.log('foo',foo)
+    Function.prototype.call2 = function( content = window ){
+        // console.log(this)
+        content.fn = this;
+        var arg = [...arguments].slice(1);
+        let result = content.fn(...arg);
+        delete content.fn;
+        return result;
+    }
+    var foo = {
+        name:'Tmac-1'
+    }
+    function boo(job,sex){
+       console.log(job,sex,this.name)
+    }
+    boo.call2(foo,"火箭","男")
+    console.log('foo',foo)
 
 
     // bind的实现  https://blog.csdn.net/smallsun_229/article/details/80298147
-    Function.prototype.bind2 = function(content) {
-        if(typeof this != "function") {
-            throw Error("not a function")
-        }
-        // 若没问参数类型则从这开始写
-        console.log('arguments',arguments)
-        let fn = this;
-        // console.log('this',this)
-        let args = [...arguments].slice(1);
-        let resFn = function() {
-            console.log('this',this)
-            // console.log('content',content,args.concat(...arguments))
-            console.log(this instanceof resFn)
-            return fn.apply(this instanceof resFn ? this : content,args.concat(...arguments) )
-        }
-        function tmp() {}
-        tmp.prototype = this.prototype;
-        resFn.prototype = new tmp();
-        // console.log('resFn',resFn)
-        return resFn;
-    }
-    // Function.prototype.bind2 = function(oThis) {
-    // if (typeof this !== 'function') {
-    //   // closest thing possible to the ECMAScript 5
-    //   // internal IsCallable function
-    //   throw new TypeError('Function.prototype.bind - what is trying to be bound is not callable');
+    // Function.prototype.bind2 = function(content) {
+    //     if(typeof this != "function") {
+    //         throw Error("not a function")
+    //     }
+    //     // 若没问参数类型则从这开始写
+    //     console.log('arguments',arguments)
+    //     let fn = this;
+    //     // console.log('this',this)
+    //     let args = [...arguments].slice(1);
+    //     let resFn = function() {
+    //         console.log('this',this)
+    //         // console.log('content',content,args.concat(...arguments))
+    //         console.log(this instanceof resFn)
+    //         return fn.apply(this instanceof resFn ? this : content,args.concat(...arguments) )
+    //     }
+    //     function tmp() {}
+    //     tmp.prototype = this.prototype;
+    //     resFn.prototype = new tmp();
+    //     // console.log('resFn',resFn)
+    //     return resFn;
     // }
 
-    // var aArgs   = Array.prototype.slice.call(arguments, 1),
-    //     fToBind = this,
-    //     fNOP    = function() {},
-    //     fBound  = function() {
-    //       // this instanceof fBound === true时,说明返回的fBound被当做new的构造函数调用
-    //       return fToBind.apply(this instanceof fBound
-    //              ? this
-    //              : oThis,
-    //              // 获取调用时(fBound)的传参.bind 返回的函数入参往往是这么传递的
-    //              aArgs.concat(Array.prototype.slice.call(arguments)));
-    //     };
-    // console.log(this instanceof fBound , aArgs.concat(Array.prototype.slice.call(arguments)) ) 
-    // // 维护原型关系
-    // if (this.prototype) {
-    //   // Function.prototype doesn't have a prototype property
-    //   fNOP.prototype = this.prototype; 
-    // }
-    // // 下行的代码使fBound.prototype是fNOP的实例,因此
-    // // 返回的fBound若作为new的构造函数,new生成的新对象作为this传入fBound,新对象的__proto__就是fNOP的实例
-    // fBound.prototype = new fNOP();
-
-    // return fBound;
-    // };
 //     var module02 = {
 //             x: 42,
 //             getX: function(a,b) {
