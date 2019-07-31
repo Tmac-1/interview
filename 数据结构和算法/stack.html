@@ -49,6 +49,9 @@
         }
         var str01 = "((12132))("; //不合法
         var str02 = "((1232131))()"; //合法
+
+        // var str01 = "[{(}]" ; // 合法
+        // var str02 = "[{]}" ; // 不合法
         // 判断括号是否合法
         function is_leagl_brackets(str){
            var stack = new Stack();

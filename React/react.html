@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+       .test{
+          box-sizing: border-box;
+          width: 60px;
+          height: 60px;
+          padding: 10px;
+          border:2px solid red;
+          background: green;
+       }
+       .parent{
+           background: pink;
+           height:200px;
+           /* overflow: hidden; */
+       }
+       .son{
+           margin-top: 20px;
+           background: lawngreen;
+       }
+    </style>
+</head>
+<body>
+    <div class="test"> 1111 </div>
+    <div class="parent">
+        <div class="son">
+             son
+        </div>
+        <div> 1111 </div>
+    </div>
+    <section>
+        <h2> React小知识点 </h2>
+        <ul>
+            <li>1.利用Fragments（React.Fragement）减少额外节点的添加，或者用短语法（"<>"，不支持key） </li>
+            <li>2.当一个数据在多处使用时，可以考虑状态提升，提升到他们最近的父组件的state上 </li>
+            <li>3.代码分割，运行时动态加载（1.动态import(返回的是promise，then接收)，2.React.lazy(()=>import(./other.js))）
+                <p>Lazy原理：记下传入的组件加载器，返回带加载状态的Lazy组件描述对象</p>
+            </li>
+            <li>
+                4. getDerivedStateFromError(),触发错误边界的时候会触发，componentDidCatch(error,info){ //上报错误日志 }
+            </li>
+            <li>5. Context提供了一个无需为每层组件手动添加props，就能直接在组件树之间传递数据的方法(管理当前local,theme,缓存数据)</li>
+            <li>6. 高阶组件中，ref并不能被props传递，所以要利用React.forwardRef() 设置组件的forwardedRef属性进行Refs的转发</li>
+            <li>7. HOC不会修改传入的组件，HOC通过将组件包装在容器中组成新组件。HOC是纯函数，没有副作用。</li>
+            <li>8. 利用shouldComponentUpdate进行条件判断，减少不必要的渲染</li>
+            <li>9. key的作用：每次state或者props更新时候，会触发render函数，会和上一次render返回的树进行对比。这个对比是有前提的
+                1：两个不同类型的元素会会产生不同的树，肯定是要重新渲染的
+                2：给每个渲染的子节点添加key，暗示子元素在不同的渲染下能保持稳定。
+                如果不加key，在遍历递归子节点的时候，改变顺序的话，会让渲染更新比较多的节点，进行了很多无意义的渲染，
+                加了key，可以匹配原有树上的子元素最新树上的子元素，使渲染变得高效。
+            </li>
+        </ul>
+        <h2> setState </h2>
+        <div>
+            <p> 1.setState通过一个队列机制来实现对state的更新,当执行setState时，
+                会将更新的state浅合并放入状态队列，而不会立即更新state </p>
+        </div>
+    </section>
+</body>
+</html>

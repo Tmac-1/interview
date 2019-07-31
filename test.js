@@ -1,12 +1,12 @@
-function foo() {
-    console.log(value);
-}
-function bar() {
-    value = 2;
-    foo();
-}
-var value = 1;
-bar();
+// function foo() {
+//     console.log(value);
+// }
+// function bar() {
+//     value = 2;
+//     foo();
+// }
+// var value = 1;
+// bar();
 
 // var value = undefined
 
@@ -19,3 +19,13 @@ bar();
 // }
 //  value = 1;
 // bar();
+
+
+
+function foo() {
+    return
+        {
+            foo:'bar'
+        }
+}
+console.log( foo() )

@@ -6,7 +6,34 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+<style>
+   .trigle{
+       display: inline-block;
+       /* width: 10px;
+       height: 10px; */
+       border-style: solid;
+       border-width: 10px 0 10px 10px;
+       /* color: red; */
+       border-color: transparent;
+       border-left-color: red;
+       box-shadow: 0 0 5px #000;
+       /* border-top: 10px solid red;
+       border-left:10px solid gray;
+       border-bottom: 10px solid green;
+       border-right: 10px solid yellow; */
+   }
+   .test{
+       display: inline-block;
+       border-top: 10px solid red;
+       border-left:10px solid gray;
+       border-bottom: 10px solid green;
+       border-right: 0px solid yellow;
+       /* transform: rotate(45deg) */
+   }
+</style>
 <body>
+    <div class="trigle"></div>
+    <div class="test"> </div>
     <h3>开发</h3>
     <ul>
         <li>1.请求数量-越少越好   合并（webpack打包）减少网络请求</li>
