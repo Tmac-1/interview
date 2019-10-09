@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>12-4章节</p>
+    <script>
+        // 模拟react-thunk的实现  createStore(counter,applyMiddleware(thunk))
+        const thunk = ({dispatch,getState})=>next=>action=>{
+            // 如果是函数，执行一下，参数是dispatch和getState
+            if(typeof action == 'function'){
+                return action(dispatch,getState)
+            }
+            // 默认，什么都没干
+            return next(action)
+        }
+        // 中间键
+        function applyMiddleWare(middleware){
+            return createStore=>(...args)=>{
+                const store = createStore(...args) // 获取原生的store，上面传过来的参数  ...args其实就是下面传递过来的reducer
+                let dispatch = store.dispatch
+
+                const midApi = {
+                    getState:store.getState,
+                    dispatch:(...args)=>dispatch(...args)
+                }
+                dispatch = middleware(midApi)(store.dispatch)   // 覆盖原生的dispatch,添加了很多功能
+                return {
+                    ...store,
+                    dispatch
+                }
+            }
+        }
+    </script>
+    <script>
+        // 无中间件版本
+         function createStore(reducer){
+             let currentState = {};  // 状态树的总状态
+             let currentListeners = [];
+             function getState(){
+               return currentState
+             }
+             function subscribe(listener){
+                 currentListeners.push(listener)
+             }
+             function dispatch(action){
+                currentState = reducer(currentState,action);
+                currentListeners.forEach(v=>v());
+                return action
+             }
+             dispatch({type:"@@redux/INIT"}) // 初始化state，取名特殊，防止重复
+             return { getState,subscribe,dispatch }
+         }
+         // 中间键版本   enhancer是applyMiddleware先执行返回的那个函数，并不是applyMiddleware本身
+         function createStore(reducer,enhancer){
+             if(enhancer){
+                 return enhancer(createStore)(reducer)
+             }
+             let currentState = {};  // 状态树的总状态
+             let currentListeners = [];
+             function getState(){
+               return currentState
+             }
+             function subscribe(listener){
+                 currentListeners.push(listener)
+             }
+             function dispatch(action){
+                currentState = reducer(currentState,action);
+                currentListeners.forEach(v=>v());
+                return action
+             }
+             dispatch({type:"@@redux/INIT"}) // 初始化state，取名特殊，防止重复
+             return { getState,subscribe,dispatch }
+         }
+    
+    /**
+    * for Example
+    */ 
+    // 这是reducer 函数,参数是状态state和新的action
+    function counter(state=0,action){
+        switch(action.type){
+            case '加机关枪' :
+            return state + 1;
+            case '减机关枪' :
+            return state - 1;
+            default :
+            return 10
+        }
+    }
+
+    // 新建store
+    const store = createStore(counter)
+    const init  = store.getState();
+    console.log(`一开始有机枪${init}把`)
+    function listener(){
+        const current = store.getState();
+        console.log(`现在有机枪${current}把`)
+    }
+    // 订阅，每次state修改，都会执行listener
+    store.subscribe(listener)
+    // 提交状态申请的变更
+    store.dispatch({type:'加机关枪'})
+    store.dispatch({type:'加机关枪'})
+    store.dispatch({type:'加机关枪'})
+    store.dispatch({type:'减机关枪'})
+    </script>
+</body>
+</html>

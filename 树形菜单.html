@@ -29,14 +29,14 @@
         });
         var val = [];
         data.forEach( item =>{
-            var parent = map[item.pid];
+            var parent = map[item.pid]; // 利用定义map对象是个引用类型
             if(parent){
                 ( parent.children || (parent.children = []) ).push(item)
             }else{
                val.push(item)
             }
         } )
-        // console.log(map)
+        console.log(map)
         return val;
     }
     console.log( toTree( data ) )

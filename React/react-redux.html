@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p>12-6 章节</p>
+    <script>
+    // 异步时候的使用
+    export function addGunAsync(){
+        // thunk插件的的作用，这里可以返回函数
+        return dispatch =>{
+            setTimeout(()=>{
+                dispatch(addGun())
+            },2000)
+        }
+    }
+    
+    //   工具函数 存在redux当中
+    function bindActionCreator(creator,dispatch){
+        return (...args)=>dispatch(creator(...args))
+    }
+    function  bindActionCreators(creators,dispatch){
+      let bound = {}
+      Object.keys(creators).forEach(v=>{
+          let creator = creators[v]
+          bound[v] = bindActionCreator(creator,dispatch)
+      })
+      return bound
+    
+      // 或者简写   
+      return Object.keys(creators).reduce((ret,item)=>{
+          ret[item]=bindActionCreator(creators[item],dispatch);
+          return item
+      })
+
+    }
+    </script>
+    <script>
+    /**  react-redux 的使用
+        import {createStore,applyMiddleware,compose } from 'redux';
+        import { Provider,Connect } from 'react-redux';
+        store = createStore( 'redux函数' ， '中间件函数' )
+        <Provider store={store}> 
+          <App/>
+       </Provider>
+    */  
+    
+    /**
+    * react-redux 模拟实现   主要实现方法connect和Provider
+    */
+    import React from 'react';
+    import PropTypes from 'prop-types'
+    // 注意：在react中使用到context属性时候，必须要定义类型，因为是全局使用的，所以比较严格
+    // connect 负责连接组件，给到redux的数据放到组件的属性里
+    //  1. 负责接收一个组件，把state里的一些数据放进去，返回一个组件
+    //  2. 数据变化的时候，能够通知组件
+
+   //  如果用function写connect
+   function connect(mapStateToProps,mapDispatchToProps){
+      return function(WrapComponent){
+          return class ConnectComponent extends React.Component{
+         
+          }
+      }
+   }
+    
+    /** connect的使用方法
+      connect(
+          state=>({num:state}),
+          {addGun,removeGun,addGunAsync}
+      )(App)
+    */ 
+    // 用匿名函数写
+    const  connect = ( mapStateToProps = state=>state , mapDispatchToProps={} )=>(WrapComponent)=>{
+        return class ConnectComponent extends React.Component{
+            static contextTypes = {
+                 store:PropTypes.object
+             }
+             constructor(props,context){
+                 super(props,context)
+                 this.state = {
+                     props:{}
+                 }
+             }
+             componentDidMount(){
+                 const {store} = this.context;
+                 store.subscribe(()=>this.update())   // 数据变化时候，通知组件
+                 this.update()
+             }
+             // 获取mapStateToProps和mapDispatchToProps放入this.props  
+             update(){
+                const {store} = this.context;
+                const stateProps = mapStateToProps(store.getState())   // store.getState() 传递给全局的参数
+                // 方法不能直接给，因为需要dispatch
+                /**
+                 *  function addGun(){
+                 *    return { type:'ADD_GUN' }
+                 *  }
+                 *  直接执行addGun()毫无意义
+                 *  addGun = ()=>store.dispatch(addGun()) 才有意义，其实就是用dispatch把actionCreators包了一层
+                 * */ 
+                const dispatchProps = bindActionCreators(mapDispatchToProps,store.dispatch)
+                this.setState({
+                    props:{
+                        ...this.state.props,
+                        ...stateProps,
+                        ...dispatchProps,
+                    }
+                })
+             }
+             render(){
+                 return  <WrapComponent {...this.state.props}></WrapComponent>
+             }
+        }
+    }
+    // Provider 把store放到context里，所有的子元素可以直接取到store  (store是createStore返回的，里面包括三个方法，就可以直接调用了)
+    class Provider extends React.Component{
+       static childContextTypes = {
+           store:PropTypes.object
+       }
+       constructor(props,context){
+           super(props,context)
+           this.store = props.store
+       }
+       getChildContext(){
+           return { store:this.store }
+       }
+       render(){
+           return this.props.children
+       }
+    }
+   
+
+    </script>
+</body>
+</html>

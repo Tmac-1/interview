@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <a href="https://www.jianshu.com/p/c51d63028371"> 参考链接 </a>
+</body>
+<script>
+    function sumBigNumber(a, b) {
+        var res = '',
+            temp = 0;
+        a = a.split('');
+        b = b.split('');
+        while (a.length || b.length || temp) {
+            temp += ~~a.pop() + ~~b.pop();
+            res = (temp % 10) + res;
+            temp = temp > 9;
+        }
+        console.log(res)
+        // return res.replace(/^0+/, '');
+        }
+        sumBigNumber('100000000000002222', '111111'); // 100000000000113333
+</script>
+</html>
