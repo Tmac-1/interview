@@ -21,7 +21,6 @@
         { id: 7, name: "用户角色", pid: 6 },
         { id: 8, name: "菜单设置", pid: 6 },
     ]
-
     function toTree(data){
         var map = {};
         data.forEach(item => {
@@ -36,23 +35,95 @@
                val.push(item)
             }
         } )
-        console.log(map)
+        // console.log(map)
         return val;
     }
     console.log( toTree( data ) )
     
-    var a = [{ "id": "0000", "text": "R1", "children": [{ "id": "8978", "text": "Aad", "children": [{ "id": "2312",
-    "text": "adaada", "children": [{ "id": "5154", "text": "asdsa" }] }, { "id": "4544", "text": "afasf", "children": [{
-    "id": "5236", "text": "afasf" }, { "id": "2328", "text": "afasf" }] }] }, { "id": "7867", "text": "R2", "children":
-    [{ "id": "8767", "text": "afasf", "children": [{ "id": "2016", "text": "afafa" }, { "id": "2017", "text": "afasd" }]
-    }, { "id": "7657", "text": "h", "children": [{ "id": "7867", "text": "afras" }] }] }] }];
+    // var a = [{ "id": "0000", "text": "R1", "children": [{ "id": "8978", "text": "Aad", "children": [{ "id": "2312",
+    // "text": "adaada", "children": [{ "id": "5154", "text": "asdsa" }] }, { "id": "4544", "text": "afasf", "children": [{
+    // "id": "5236", "text": "afasf" }, { "id": "2328", "text": "afasf" }] }] }, { "id": "7867", "text": "R2", "children":
+    // [{ "id": "8767", "text": "afasf", "children": [{ "id": "2016", "text": "afafa" }, { "id": "2017", "text": "afasd" }]
+    // }, { "id": "7657", "text": "h", "children": [{ "id": "7867", "text": "afras" }] }] }] }];
+    var a = [{
+	"id": "0000",
+	"text": "R1",
+	"children": [
+        {
+		"id": "8978",
+		"text": "Aad",
+		"children": [{
+			"id": "2312",
+			"text": "adaada",
+			"children": [{
+				"id": "5154",
+				"text": "asdsa"
+			}]
+		}, {
+			"id": "4544",
+			"text": "afasf",
+			"children": [{
+				"id": "5236",
+				"text": "afasf"
+			}, {
+				"id": "2328",
+				"text": "afasf"
+			}]
+		}]
+	   }, 
+       {
+		"id": "7867",
+		"text": "R2",
+		"children": [{
+			"id": "8767",
+			"text": "afasf",
+			"children": [{
+				"id": "2016",
+				"text": "afafa"
+			}, {
+				"id": "2017",
+				"text": "afasd"
+			}]
+		}, {
+			"id": "7657",
+			"text": "h",
+			"children": [{
+				"id": "7867",
+				"text": "afras"
+			}]
+		}]
+	   }]
+    },
+    {
+        id:"0001",
+        text:'哈哈哈哈哈',
+        children:[{
+            id:"1213",
+            text:'adfasfas'
+        }]
+    }]
+    // 返回数组（递归）
+    let res = []
+    function toArray(node,id){
+        node.forEach(item=>{
+            let obj = {};
+            obj.id = item.id;
+            obj.text = item.text;
+            obj.pid = id || null;
+            res.push(obj)
+            if(item.children){
+                toArray(item.children,item.id)
+            }
+        })
+    }
+    toArray(a)
+    console.log('res',res)
 
+    // 查找节点（递归） 
     var json = [];
     function findChild(initData,id){
         for( var i=0;i<initData.length;i++ ){
             if(  initData[i].id == id ){
-                // console.log( initData[i] )
-                // return initData[i];
               json.push(initData[i])
             }else{
                 if( initData[i].hasOwnProperty('children') ){
@@ -61,7 +132,7 @@
             } 
         }
     }
-    console.log(findChild(a,"5154")) ;
+    findChild(a,"1213") ;
     console.log(json)
     </script>
 </body>
