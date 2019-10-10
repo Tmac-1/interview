@@ -62,7 +62,8 @@
                 会将更新的state浅合并放入状态队列，而不会立即更新state </p>
             <p> Q1:如何拿到更新后的state，
                 1.通过setState({},()=>{})后面的回调函数，这个回调函数会在state更新后执行
-                2.setState((prevState)=>{})中传入一个函数，这个函数第一个参数会默认接受上一个state
+                2.setState((prevState,props)=>{})中传入一个函数，这个函数第一个参数会默认接受上一个state
+                <a href="https://blog.csdn.net/weixin_34409703/article/details/91391905">参考链接</a>
              </p>   
             <h2> Q2:为什么setState要设计成异步的 </h2>
             <ul>
