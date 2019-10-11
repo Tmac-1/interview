@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // 千位分割  金钱转化 1234 -> 1,234
+        function formatNum( str ){
+            str = String(str)
+            let newStr = '';
+            let count = 0 ;
+            if(str.indexOf('.') != -1){
+            let strArr = str.split('.');
+            for(let i=strArr[0].length-1;i >= 0;i--){
+                if(count % 3 == 0 && count !=0){
+                newStr = strArr[0].charAt(i) + ',' + newStr;
+                }else{
+                newStr = strArr[0].charAt(i) + newStr;
+                }
+                count++;
+            }
+            newStr = newStr +'.'+strArr[1]
+            }else{
+                for(let i=str.length-1;i >= 0;i--){
+                    if(count % 3 == 0 && count !=0){
+                    newStr = str.charAt(i) + ',' + newStr;
+                    }else{
+                    newStr = str.charAt(i) + newStr;
+                    }
+                    count++;
+                }
+            }
+            // console.log('newStr',newStr)
+            return newStr; 
+        }
+    </script>
+</body>
+</html>
