@@ -31,6 +31,9 @@ function foo() {
 console.log( foo() )
 
 
-var props={}
-var stateProps={num:1}
-console.log({...props,...stateProps})
+// var props={}
+// var stateProps={num:1}
+// console.log({...props,...stateProps})
+
+var a = 'hadh'
+console.log(~~a)
