@@ -35,5 +35,14 @@ console.log( foo() )
 // var stateProps={num:1}
 // console.log({...props,...stateProps})
 
-var a = 'hadh'
-console.log(~~a)
+// var a = 'hadh'
+// console.log(~~a)
+
+let Person = {}
+
+Object.defineProperty(Person, 'name', {
+   value: 'jack',
+   writable: true // 是否可以改变
+})
+// Person.name = 111
+console.log(Person.name)
