@@ -22,13 +22,13 @@
 
 
 
-function foo() {
-    return
-        {
-            foo:'bar'
-        }
-}
-console.log( foo() )
+// function foo() {
+//     return
+//         {
+//             foo:'bar'
+//         }
+// }
+// console.log( foo() )
 
 
 // var props={}
@@ -38,11 +38,47 @@ console.log( foo() )
 // var a = 'hadh'
 // console.log(~~a)
 
-let Person = {}
+// let Person = {}
 
-Object.defineProperty(Person, 'name', {
-   value: 'jack',
-   writable: true // 是否可以改变
-})
-// Person.name = 111
-console.log(Person.name)
+// Object.defineProperty(Person, 'name', {
+//    value: 'jack',
+//    writable: true // 是否可以改变
+// })
+// // Person.name = 111
+// console.log(Person.name)
+
+
+
+let obj = {
+    a:1
+}
+
+function test(a,b){
+    console.log(this.a)
+}
+
+test.call(obj,1,2)
+console.log(obj)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
