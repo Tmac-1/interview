@@ -49,16 +49,16 @@
 
 
 
-let obj = {
-    a:1
-}
+// let obj = {
+//     a:1
+// }
 
-function test(a,b){
-    console.log(this.a)
-}
+// function test(a,b){
+//     console.log(this.a)
+// }
 
-test.call(obj,1,2)
-console.log(obj)
+// test.call(obj,1,2)
+// console.log(obj)
 
 
 

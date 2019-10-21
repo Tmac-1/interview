@@ -56,7 +56,12 @@
        me.isHuman = true; // inherited properties can be overwritten
        me.printIntroduction();
       // expected output: "My name is Matthew. Am I human? true"
-
+      // createObj的实现
+       function createObj(o) {
+            function F(){}
+            F.prototype = o;
+            return new F();
+       }
     </script>
 </body>
 </html>

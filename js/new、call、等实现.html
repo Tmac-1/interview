@@ -9,24 +9,7 @@
    <input id="file" type="file" name="file"/>
 <body>
     <script>
-       document.getElementById('file').onchange = function(e){
-           console.log(e.target.value)
-           console.log( document.getElementById('file').files)
-           var MyTest = document.getElementById('file').files[0]
-           var reader = new FileReader();
-            reader.readAsDataURL(MyTest);
-            reader.onload = function(theFile) {
-            　　var image = new Image();
-            image.src = theFile.target.result;
-            image.onload = function() {
-            　　alert("图片的宽度为"+this.width+",长度为"+this.height);
-            };
-            };
-       }
-       
 
-
- 
         // new 操作  https://www.cnblogs.com/shuizhongyu111/p/7355383.html
         // 它创建了一个全新的对象。
         // 它会被执行[[Prototype]]（也就是__proto__）链接。
@@ -79,37 +62,28 @@
     boo.call2(foo,"火箭","男")
     console.log('foo',foo)
 
-   [
-       {
-        rights:'',
-        numbre:1,
-        bu333:20,
-        nuber:33
-        },
-       {}
-   ]
     // bind的实现  https://blog.csdn.net/smallsun_229/article/details/80298147
-    // Function.prototype.bind2 = function(content) {
-    //     if(typeof this != "function") {
-    //         throw Error("not a function")
-    //     }
-    //     // 若没问参数类型则从这开始写
-    //     console.log('arguments',arguments)
-    //     let fn = this;
-    //     // console.log('this',this)
-    //     let args = [...arguments].slice(1);
-    //     let resFn = function() {
-    //         console.log('this',this)
-    //         // console.log('content',content,args.concat(...arguments))
-    //         console.log(this instanceof resFn)
-    //         return fn.apply(this instanceof resFn ? this : content,args.concat(...arguments) )
-    //     }
-    //     function tmp() {}
-    //     tmp.prototype = this.prototype;
-    //     resFn.prototype = new tmp();
-    //     // console.log('resFn',resFn)
-    //     return resFn;
-    // }
+    Function.prototype.bind2 = function(content) {
+        if(typeof this != "function") {
+            throw Error("not a function")
+        }
+        // 若没问参数类型则从这开始写
+        console.log('arguments',arguments)
+        let fn = this;
+        // console.log('this',this)
+        let args = [...arguments].slice(1);
+        let resFn = function() {
+            console.log('this',this)
+            // console.log('content',content,args.concat(...arguments))
+            console.log(this instanceof resFn)
+            return fn.apply(this instanceof resFn ? this : content,args.concat(...arguments) )
+        }
+        function tmp() {}
+        tmp.prototype = this.prototype;
+        resFn.prototype = new tmp();
+        // console.log('resFn',resFn)
+        return resFn;
+    }
 
 //     var module02 = {
 //             x: 42,
