@@ -17,8 +17,8 @@
         a = a.split('');
         b = b.split('');
         while (a.length || b.length || temp) {
-            temp += ~~a.pop() + ~~b.pop();
-            res = (temp % 10) + res;
+            temp += ~~a.pop() + ~~b.pop();  // temp是true时候隐式转换成1
+            res = (temp % 10) + res;  // 始终是字符串
             temp = temp > 9;
         }
         console.log(res)
