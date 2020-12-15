@@ -8,5 +8,49 @@
 </head>
 <body>
     <a href="https://juejin.im/post/5ac2fb886fb9a028b86e328c">实现eventEmiiter</a>
+    <a href="https://www.jianshu.com/p/42b8192f7088">小程序中实现状态管理</a>
+    <a href="https://blog.csdn.net/hf872914334/article/details/88899326">观察者模式和发布订阅模式的区别</a>
+    <script>
+        class EventsEmitter{
+           constructor(){
+               this.events=new Map()
+           }
+           addListener(name,callback){
+               if(!this.events.has(name)){
+                   this.events.set(name,callback)
+                //    console.log(1111)
+               }else{
+                   let listener=this.events.get(name)
+                //    console.log(2222)
+                   if(Array.isArray(listener)){
+                    //    console.log(33333)
+                       listener.push(callback)
+                   }else{
+                    //    console.log(44444)
+                       listener=[listener,callback]
+                   }
+                   this.events.set(name,listener)
+               }
+           }
+           emit(name,data){
+               if(this.events.has(name)){
+                   let listener=this.events.get(name);
+                   if(Array.isArray(listener)){
+                       listener.forEach(item=>item(data))
+                   }else{
+                       listener(data)
+                   }
+               }
+           }
+        }
+        let emitter = new EventsEmitter()
+        emitter.addListener('ev01',(val)=>{
+            console.log('1',val)
+        })
+        emitter.addListener('ev01',(val)=>{
+            console.log('2',val)
+        })
+        emitter.emit('ev01',{data:1})
+    </script>
 </body>
 </html>

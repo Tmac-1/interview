@@ -8,7 +8,9 @@
 </head>
 
 <body>
-    <p>12-4章节</p>
+    <p>12-4章节
+        <a href="https://www.cnblogs.com/yangyangxxb/p/10047648.html"></a>
+    </p>
     <script>
         // 模拟react-thunk的实现  createStore(counter,applyMiddleware(thunk))
         const thunk = ({dispatch,getState})=>next=>action=>{
@@ -108,6 +110,56 @@
     store.dispatch({type:'加机关枪'})
     store.dispatch({type:'加机关枪'})
     store.dispatch({type:'减机关枪'})
+    </script>
+    <script>
+        function f1(){console.log(1)}
+        function f2(){console.log(2)}
+        function f3(){console.log(3)}
+
+        // f3(f2(f1()))
+  
+        // console.log(compose(f1,f2,f3))  
+
+        // function f4(){
+        //   console.log(4)
+        //   return ()=>{
+        //       console.log(5)
+        //       return f1()
+        //    }
+        // }
+        // f4()()
+
+        // function compose1 (...arr) {
+        //     console.log(111)
+        //     return (param) => {
+        //         for (let fn of arr) {
+        //           param = fn(param);
+        //         }
+        //         return param;
+        //     }
+        // }
+        // compose1(f1,f2,f3)()
+        // function compose2 (...arr) {
+        //   return arr.length <= 1 ? arr[0] : (...args) => compose2(arr.slice(1))(arr[0](...args))
+        // }
+        // compose2(f1,f2,f3)()
+
+        const compose3 = (...arr) => arr.reduce((res, cur) => (...args) => cur(res(...args)));
+        const compose4 = (...arr) =>{
+            return arr.reduce((pre,cur)=>{
+                return function(...arg){
+                    cur(pre(...arg))
+                }
+            })
+        }
+        compose4(f1,f2,f3)()
+
+        // function testSlice(){
+        //     var arr = [1,2,3];
+        //     console.log(arr.slice(1),arr)
+        //     // 该方法并不会修改数组，而是返回一个子数组。如果想删除数组中的一段元素，应该使用方法 Array.splice()。
+        // }
+        // testSlice()
     </script>
 </body>
 </html>
