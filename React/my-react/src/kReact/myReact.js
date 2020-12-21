@@ -23,6 +23,5 @@ class Component {
 }
 
 export default {
-    createElement,
-    Component
+    createElement
 }
