@@ -1,4 +1,4 @@
-function createElement(type,props,...children){
+let createElement = function (type,props,...children){
     console.log('createElement',...arguments)
     props.children = children;
     let vtype;
@@ -22,6 +22,6 @@ class Component {
     }
 }
 
-export default {
+export default  {
     createElement
 }
