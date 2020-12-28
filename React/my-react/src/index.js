@@ -1,9 +1,10 @@
 // import React,{Component} from 'react';
 import React from './kReact/myReact';
-import ReactDOM from 'react-dom';
+
+// import ReactDOM from 'react-dom';
 
 // import ReactDOM from './ReactDOM';
-import './index.css';
+
 // import App from './App';
 // import reportWebVitals from './reportWebVitals';
 
@@ -13,17 +14,21 @@ import './index.css';
 //   }
 // }
 
+let ReactDOM = React
+
 function FunCmp(props) {
   return <div>{props.name}</div>
 }
 
-let jsx = (
+let jsx = 
   <div>
-    <div>我是内容</div>
-    <FunCmp name="我是function组件"/>
+    <div>我是内容
+      <p class="he">hahahh </p>
+    </div>
+    {/* <FunCmp name="我是function组件"/> */}
     {/* <ClassCmp name="我是class组件"/> */}
   </div>
-) 
+
 
 // function App() {
 //   return (
