@@ -50,5 +50,30 @@
         <li>静态化、缓存</li>
         <li>异构计算</li>
     </ul>
+
+    <script>
+        // 节流 (每隔一段时间执行一次)
+        const throttle = (func,wait=500)=>{
+            let lastTime = 0
+            return function(...arg){
+              let now = new Date() 
+              if(now - lastTime > wait){
+                  lastTime = now
+                  func.apply(this,arg)
+              }
+            }
+        }
+        // 防抖 （全程只执行一次）
+        const debounce = (func,wait=500)=>{
+            let timer=0
+            return function(...args){
+                if(timer) clearTimeout(timer)
+                timer = setTimeout(()=>{
+                    func.apply(this,args)
+                },wait)
+            }
+        }
+    </script>
+
 </body>
 </html>

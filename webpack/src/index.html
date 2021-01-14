@@ -1,12 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <p>webpack是一个打包模块化的</p>
-    <script src="../dist/main.js"></script>
+    <!-- <script src="../dist/main.js"></script> -->
 </body>
+<script>
+    //     var obj = {
+    //         say : function(str){
+    //             return str
+    //         }
+    //     }
+    //    console.log((0,obj.say)('hello'))  
+    // let a = {};
+    // if(a){console.log(1)}else{console.log(2)}
+
+    (function (graph) {
+        function require(module) {
+
+            function localRequire(relativePath) {
+                console.log(111)
+                return require(graph[module].dependcies[relativePath])
+            }
+
+            var exports = {};
+            (function (require, exports, code) {
+                 /**
+                  *  1. code 里面有require函数，会执行，相当于require->localRequire函数执行了
+                  *  2. 并且code里面有exports对象，方法会赋值在exports对象上，所以require函数执行返回一个exports
+                  *     对象，这样require引用时候就得到一个新对象，就能执行对象下面的方法
+                  * */ 
+              
+                eval(code) 
+            })(localRequire, exports, graph[module].code)
+            return exports
+        }
+
+            require('./src/index.js')
+        })({ 
+            "./src/index.js": 
+             { 
+                 "dependcies": { "./hello.js": ".\\src\\hello.js" }, 
+                 "code": "\"use strict\";\n\nvar _hello = require(\"./hello.js\");\n\nconsole.log(1111);\ndocument.write('hello' + (0, _hello.say)(\"webapack\")); // import test from './test';\n// 获取配置 根据配置信息启动webpack，执行构建\n\n/**\r\n * 1.从入口模块开始分析（有哪些依赖，转换代码）\r\n * 2.递归的分析其他依赖模块（有哪些依赖，转换代码）\r\n * 3.生成可以在浏览器端执行bundle文件\r\n*/" 
+             }, 
+             ".\\src\\hello.js": 
+            { 
+                "dependcies": { "./a.js": ".\\src\\a.js" }, 
+                "code": "\"use strict\";\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.say = say;\n\nvar _a = require(\"./a.js\");\n\nfunction say(str) {\n  return str + (0, _a.add)(10 + 8);\n}" 
+            }, 
+             ".\\src\\a.js": 
+            { 
+                "dependcies": {}, 
+                "code": "\"use strict\";\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.add = add;\n\nfunction add(a, b) {\n  return a + b;\n}" 
+            } 
+          })
+</script>
+
 </html>

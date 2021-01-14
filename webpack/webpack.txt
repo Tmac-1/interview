@@ -4,3 +4,22 @@ webpack 是一个打包模块化的JavaScript的工具，它会从入口模块�
 webpack是基于nodejs的,所以要基于CommonJS规范导出一个对象
 
 webpack不适用于构建JavaScript库，因为不够纯碎，会打包出来一个bootstrap函数
+
+Plugins可以在webpack运行到某个阶段的时候，帮你做一些事情，类似于生命周期的概念
+扩展插件，在webpack构建流程中的特定时机注入扩展逻辑来改变构建结果或者你想做的事情。
+作用于整个构建过程
+
+Plugin:开始打包，在某个时刻，帮助我们处理一些什么事情的机制
+plugin要比loader稍微复杂一些，在webpack的源码中，用plugin的机制还是占有非常大的场景，
+可以说plugin是webpack的灵魂
+设计模式
+  事件驱动  发布订阅
+plugin是一个类，里面包含一个apply函数，接收一个参数，compiler
+
+babel-loader 负责和webpack搭建桥梁
+babel-core 是核心代码，提供很多api，转ast语法树等
+babel-preset-env 负责真正的转换工作，兼容各版本的语法特性，把es6转es5，但是支持的并不全
+babel-polyfill 提供更多语法转换
+
+
+多页面打包 ：entry可以定义一个对象，plugins可以写多个htmlWebpackPlugins
