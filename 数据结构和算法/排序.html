@@ -20,7 +20,7 @@
     }    
     </script>
     <script> 
-        // 快排  （找到中间位置，数组分两组，递归数组）
+        // 快排  （找到中间位置，数组分两组，递归数组）O(logn)
         function quickSort(arr){  
             if(arr.length<=1){//如果数组只有一个数，就直接返回；  
                 return arr;  
@@ -38,7 +38,11 @@
             return quickSort(left).concat(middleValue,quickSort(right));//递归不断重复比较  
         }  
        console.log(quickSort([21,45,5,12,56,8,9]));//[5, 8,9,12, 21, 45, 56]  
-        //冒泡排序   （双层for循环 位置交换）
+    /**
+     * 原地快排，不占用额外空间，原地交换数据完成
+     * 
+     * */    
+        //冒泡排序   （双层for循环 位置交换）O(n^2)
         function bubbleSort(arr){
             for(var i=0;i<arr.length-1;i++){
                 for(var j=i+1;j<arr.length;j++){
@@ -52,7 +56,7 @@
             return arr;
         }
         console.log(bubbleSort([21,45,5,12,56,8,9]))
-        // 插入排序 （很少考到）
+        // 插入排序 （很少考到）O(n^2)
         function insertSort(arr) {
            var len =arr.length;
             for (var i=1;i<len; i++) {
