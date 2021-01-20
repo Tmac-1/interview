@@ -69,12 +69,33 @@
 // }
 
 
+var  arr = [3,4,2,5,1,8,4,9,9,2]
 
-(()=>{
-  console.log(111)
-})()
-
-
+// function bubleSort(arr) {
+//   for (var i = 0; i < arr.length - 1; i++) {
+//     for (var j = i + 1; j < arr.length; j++) {
+//       if (arr[i] > arr[j]) {
+//         [arr[i], arr[j]] = [arr[j], arr[i]]
+//       }
+//     }
+//   }
+//   return arr
+// }
+// console.log(bubleSort(arr)) 
+    // i=2 j=1 j+1=2
+    function insertSort(arr){
+       for(var i=1;i<arr.length;i++){
+           var tem = arr[i]
+           var j = i-1
+           while(j>=0 && arr[j]>tem){
+              arr[j+1]=arr[j]
+              j--;
+           }
+           arr[j+1]=tem
+       }
+       return arr
+    }
+    console.log(insertSort(arr)) 
 
 
 
