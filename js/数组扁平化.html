@@ -39,7 +39,6 @@
     //  console.log([].concat(...arr)); // [1, 2, [3, 4]]
      function flattern(arr){
         while( arr.some(item=>Array.isArray(item))){
-            console.log(arr)
             arr = [].concat(...arr)
         }
         return arr;
