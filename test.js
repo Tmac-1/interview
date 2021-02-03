@@ -201,37 +201,33 @@
 // console.log(binaryFind(3,arr,0,arr.length-1)) 
 
 
+// function legalBrackets(str){
+//    let stack = []
+//    let map = {
+//       '{':'}',
+//       '[':']',
+//       '(':')',
+//    }
+//    for(let item of str) {
+//       if(map[item]) {
+//          stack.push(item)
+//       }else if(Object.values(map).includes(item)){
+//          let last = stack.pop()
+//          if(item !== map[last]) return false
+//       }
+//    }
+//    return stack.length == 0
+// }
+// console.log(legalBrackets("()")); //true
+// console.log(legalBrackets("([ ) ]")); //false
+// console.log(legalBrackets("([{ )]")); //false
+// console.log(legalBrackets("()[ ]{}")); //true
+// console.log(legalBrackets(" { ]")); //false
+// console.log(legalBrackets("{ [ ] }")); //true
+// console.log(legalBrackets("function a (){console.log(1111)}"))// true
 
 
-function legalBrackets(str){
-   let stack = []
-   let map = {
-      '{':'}',
-      '[':']',
-      '(':')',
-   }
-   for(let item of str) {
-      if(map[item]) {
-         stack.push(item)
-      }else if(Object.values(map).includes(item)){
-         let last = stack.pop()
-         if(item !== map[last]) return false
-      }
-   }
-   return stack.length == 0
-}
-console.log(legalBrackets("()")); //true
-console.log(legalBrackets("([ ) ]")); //false
-console.log(legalBrackets("([{ )]")); //false
-console.log(legalBrackets("()[ ]{}")); //true
-console.log(legalBrackets(" { ]")); //false
-console.log(legalBrackets("{ [ ] }")); //true
-console.log(legalBrackets("function a (){console.log(1111)}"))// true
-
-
-
-// let arr = [1,2,3]
-// console.log(arr.pop(),arr)
+// 找钱问题 change = new Change([1,5,10,20,50,100]) change.makeChange(13)
 
 
 

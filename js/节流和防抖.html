@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <div id="cotianer" style="width: 200px;height:200px;background:red">1</div>
+</head>
+<body>
+    <script>
+        // 函数防抖，一直触发的函数,在停止触发之后再执行 https://github.com/mqyqingfeng/Blog/issues/22
+       function debounce(fn,time){
+           var timer = null
+           return function(){
+            // console.log('this1',this,arguments)
+            clearTimeout(timer)
+            timer = setTimeout((a=1)=>{
+            //    console.log('this2',this,arguments)
+               fn.apply(this,arguments)
+            },time)
+            // timer = setTimeout(function(a=1){  // setTimeout 是在全局window函数下的，如果不使用箭头函数的话，this会指向全局window对象
+            //    console.log('this2',this,arguments)
+            //    fn.apply(this,arguments)
+            // },time)
+           }
+       }
+        // 只有当鼠标移动停止后2s再打印
+        var count = 1;
+        var container = document.getElementById('cotianer')
+        function getUserAction(e){
+            container.innerHTML = count++
+        }
+        // container.onmousemove = getUserAction;
+        // container.onmousemove = debounce(getUserAction, 2000);
+
+        // 函数节流 每隔一段时间执行一次 https://github.com/mqyqingfeng/Blog/issues/26
+        function throttle(fn,time){
+          let lastTime = 0
+          return function(){
+            let now = new Date()
+            if((now - lastTime) > time){
+                // console.log('this',this,arguments)
+                fn.apply(this,arguments)
+                lastTime = now
+            }
+          }
+        }
+        container.onmousemove = throttle(getUserAction, 2000);
+    </script>
+</body>
+</html>
