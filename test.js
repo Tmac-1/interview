@@ -229,6 +229,31 @@
 
 // 找钱问题 change = new Change([1,5,10,20,50,100]) change.makeChange(13)
 
+class Change {
+   constructor(coins){
+      this.coins = coins;
+      this.caches = {}
+   }
+   makeChange(amount){
+      if(this.caches[amount]){
+         return this.caches[amount]
+      }
+      let min = [], leftArr=[] ,leftAmount
+      for(let i in this.coins){
+          leftAmount = amount-this.coins[i];
+         if(leftAmount>=0){
+           leftArr = this.makeChange(leftAmount)
+         }
+         if(leftAmount>=0 && (leftArr.length || !leftAmount)){
+            // min = [this.coins[i]].concat(leftArr)
+            min = leftArr.concat([this.coins[i]]) 
+         }
+      }
+      return this.caches[amount]= min
+   }
+}
+var change = new Change([1,5,10,20,50,100]) 
+console.log(change.makeChange(13)) 
 
 
 
