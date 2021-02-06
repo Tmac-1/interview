@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+   .parent{
+       margin-top: 20px;
+       background: red;
+       height: 200px;
+       /* overflow: hidden; */
+       border:2px solid hotpink;
+   }
+   .son{
+       margin-top: 40px;
+       background: yellow;
+   }
+   .container { 
+        overflow: hidden; /* creates block formatting context */ 
+        background-color: green; 
+    } 
+    .container .Sibling { 
+            float: left; 
+            margin: 10px;
+            background-color: lightgreen;  
+    }
+</style>
+<body>
+    <!-- <div style="overflow: -hidden;"> -->
+    <div style="width: 50px;height: 50px;background-color: red;margin-bottom: 20px;">box1</div>
+    <div style="overflow: -hidden;display: inline-block;"> 
+        <div style="width: 50px;height: 50px;background-color: yellow;margin-top: 20px">box2 外面包了一层，形成了一个新的bfc</div>
+    </div>
+
+    <!-- </div> -->
+    <!-- 清除浮动 -->
+    <div class="container">
+        <div class="Sibling"></div>
+        <div class="Sibling"></div>
+    </div>
+
+    <div class="parent">
+        <div class="son"> 儿子 </div>
+    </div>
+    <h2> 如何形成一个BFC: BFC是一个独立的布局环境，一旦形成一个BFC条件，里面的元素布局不受外部影响  </h2>
+    <p>作用：1 清除浮动 2 解决margin重叠问题 3.防止文字（或其他元素）环绕</p>
+    <p>
+         <a href="https://segmentfault.com/a/1190000009545742"> 参考链接 </a>
+         <a href="https://segmentfault.com/a/1190000013647777?utm_source=sf-related">参考链接2</a>
+     </p>
+    <p> 定义：它决定了元素如何对其内容进行定位，以及与其他元素的关系和相互作用 </p>
+    <ul>
+        <li> 1.块级元素具有overflow,且值不是visible（ 可以用来清除浮动，这样在计算高度的时候，就会算上浮动元素的高度 ）  </li>
+        <li> 2.解决margin重叠问题 </li>
+        <li> 3.BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素</li>
+    </ul>
+
+
+    <a href="https://www.cnblogs.com/chris-oil/p/10800961.html">回流和重绘</a>
+    <p>css3的transform会开启硬件加速，不会引起回流和重绘</p>
+</body>
+</html>
