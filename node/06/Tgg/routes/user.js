@@ -1,8 +1,9 @@
 module.exports = {
-   "get /": async ctx => {
-       ctx.body = 'user page'
+   "get /": async app => {
+       const name = await app.$service.user.getName()
+       app.ctx.body = 'user page' + name
    },
-   "get /info": ctx => {
-       ctx.body = 'userinfo page'
+   "get /info":  app => {
+       app.ctx.body = 'userinfo page' + app.$service.user.getAge()
    }
 }
