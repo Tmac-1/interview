@@ -1,9 +1,12 @@
 // import { reducerName } form './reducer'
-// import { createStore} from 'redux';
+// import { createStore, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
+import logger from 'redux-logger';
 import createStore from '../kredux/createStore';
+import applyMiddleware from '../kredux/applyMiddleware';
 
 function counterReducer(state = 100, action)  {
-  console.log('state',state)
+  // console.log('state',state)
   switch (action.type) {
     case "ADD":
       return state + 1;
@@ -14,6 +17,6 @@ function counterReducer(state = 100, action)  {
   }
 }
 
-const store = createStore(counterReducer)
+const store = createStore(counterReducer,applyMiddleware(thunk,logger))
 
 export default store
