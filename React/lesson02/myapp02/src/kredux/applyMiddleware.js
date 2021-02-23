@@ -7,7 +7,9 @@ function compose(...funcs) {
     if (funcs.length == 1) {
         return funcs[0]
     }
-    return funcs.reduce((total, current) => (...args) => total(current(...args)))
+    // console.log(funcs.reduce((total, current) => (...args) => total(current(...args))))
+    // return funcs.reduce((total, current) => (...args) => total(current(...args)))
+     return funcs.reduce((total, current) => (...args) => total(current(...args)))
 }
 
 export default function applyMiddleware(...middlewares) {
@@ -33,16 +35,3 @@ export default function applyMiddleware(...middlewares) {
 }
 
 
-function logger({ getState }) {
-    return next => action => {
-        console.log("====================================");
-        console.log(action.type + "执⾏了！"); //sy-log
-        const prevState = getState();
-        console.log("prev state", prevState); //sy-log
-        const returnValue = next(action);
-        const nextState = getState();
-        console.log("next state", nextState); //sy-log
-        console.log("====================================");
-        return returnValue;
-    };
-}
