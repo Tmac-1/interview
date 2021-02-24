@@ -2,13 +2,14 @@ import React, { Component, useEffect } from "react";
 // import Form, { Field } from "rc-field-form";
 import Form, { Field } from "../components/my-rc-field-form/";
 // import Input from '../components/Input';
-import { Input, Button } from "antd";
+import { Input } from "antd";
 
 const nameRules = { required: true, message: "请输⼊姓名！" };
 const passworRules = { required: true, message: "请输⼊密码！" };
 
 export default function MyRCFieldForm(props) {
     const [form] = Form.useForm();
+    console.log('form',form)
     const onFinish = val => {
         console.log("onFinish", val); //sy-log
     };

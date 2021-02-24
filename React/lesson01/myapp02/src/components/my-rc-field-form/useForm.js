@@ -4,7 +4,7 @@ import React,{useRef} from 'react';
 class FormStore {
   constructor() {
     this.store = {} // 存儲數據，比如説username password
-    this.fieldEnetities = []
+    this.fieldEnetities = [] // 每一个Field的实例集合
     this.callbacks = {}
   }
   registryEntity = entity => {
@@ -37,6 +37,7 @@ class FormStore {
     return this.store
   }
   setCallback = callback => {
+    // console.log('callback',callback)
     this.callbacks = {
       ...this.callbacks,
       ...callback

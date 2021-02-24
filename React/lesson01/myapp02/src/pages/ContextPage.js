@@ -4,7 +4,7 @@ import {ThemeProvider,UserProvider} from "../Context";
 // import {ThemeContext, UserContext} from "../Context";
 import UseContextPage from "./UseContextPage";
 import ConsumerPage from "./ConsumerPage";
-// import AntdFormPage from './FormPage';
+import Test from './test';
 import MyRCFieldForm from './MyRCFieldForm';
 
 
@@ -30,11 +30,13 @@ export default class ContextPage extends Component {
             }
         });
     }
+    stop = ()=>{}
     render(){
         const {theme,user}=this.state;
         return (
             <div>
                 <h3>ContextPage</h3>
+                <Test /> 
                 <ThemeProvider value={theme}>
                     <UserProvider value={user}>
                         <ConsumerPage/>

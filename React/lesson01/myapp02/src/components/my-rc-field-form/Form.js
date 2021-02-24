@@ -4,7 +4,7 @@ import useForm from './useForm';
 
 export default function Form({ form,children, onFinish, onFinishFailed },ref) {
     const [formInstance] = useForm(form)
-    React.useImperativeHandle(ref,()=>formInstance)
+    // React.useImperativeHandle(ref,()=>formInstance)
     formInstance.setCallback({
         onFinish,
         onFinishFailed
