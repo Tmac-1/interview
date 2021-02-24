@@ -30,3 +30,26 @@
   * 所以就成了foo函数在外部调用，但是可以读到checkscope函数内部的变量
   * （闭包就是能够读取其他函数内部变量的函数。）
  */
+
+
+
+//  案例
+for(var i=0; i<4; i++) {
+    (function(i){
+       setTimeout(()=>{
+           console.log(i)
+       },1000)
+    })(i)
+}  // 0 1 2 3
+
+for(var i=0; i<4; i++){
+    setTimeout(()=>{
+        console.log(i)
+    })
+} // 4 4 4 4
+
+for(let i=0; i<4; i++){
+    setTimeout(()=>{
+        console.log(i)
+    })
+} // 0 1 2 3

@@ -5,10 +5,10 @@ import {ThemeContext} from '../Context';
 class ConsumerPage extends Component {
     // static contextType = ThemeContext
     componentDidMount(){
-        console.log('context',this)
+        // console.log('context',this)
     }
     render(){
-        console.log('render',this)
+        // console.log('render',this)
         return(
             <div>
                 <h3>ConsumerPage</h3>
