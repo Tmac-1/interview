@@ -90,7 +90,8 @@ class FormStore {
 
 
 export default function useForm(form) {
-  const formRef = useRef();
+  // const formRef = useRef();
+  const formRef = {}
   if(!formRef.current){
     if(form) {
       formRef.current = form;
