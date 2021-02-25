@@ -1,10 +1,9 @@
-
-import './App.css';
+import HooksPage from './pages/HooksPage';
 
 function App() {
   return (
     <div className="App">
-       111111
+       <HooksPage/>
     </div>
   );
 }
