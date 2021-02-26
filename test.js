@@ -286,7 +286,13 @@ function compose(...funcs){
    if(funcs.length==1){
       return funcs[0]
    }
-   return funcs.reduce((total,current)=> (...args)=>total(current(...args)) )
+   return funcs.reduce(function(total,current){
+      return function(...args){
+        console.log('total',total)
+        return total(current(...args))
+      }
+   })
+   // return funcs.reduce((total,current)=> (...args)=>total(current(...args)) )
 }
 console.log('res',res)
 
