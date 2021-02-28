@@ -1,16 +1,21 @@
 
 
-function compose(...funcs) {
-    if (funcs.length == 0) {
-        return args => args
+function compose(...funcs){
+    if(funcs.length==0){
+       return args => args
     }
-    if (funcs.length == 1) {
-        return funcs[0]
+    if(funcs.length==1){
+       return funcs[0]
     }
-    // console.log(funcs.reduce((total, current) => (...args) => total(current(...args))))
-    // return funcs.reduce((total, current) => (...args) => total(current(...args)))
-     return funcs.reduce((total, current) => (...args) => total(current(...args)))
-}
+    return funcs.reduce(function(total,current){
+       return function(...args){
+        //  console.log('total',args)
+        //  console.log('args',args)
+         return total(current(...args))
+       }
+    })
+    // return funcs.reduce((total,current)=> (...args)=>total(current(...args)) )
+ }
 
 export default function applyMiddleware(...middlewares) {
     return createStore => reducer => {
@@ -24,6 +29,7 @@ export default function applyMiddleware(...middlewares) {
 
         // 执行中间件
         const middlewareChain = middlewares.map(middleware => middleware(midApi))
+        // console.log('middlewareChain',middlewareChain)
         dispatch = compose(...middlewareChain)(store.dispatch)
 
         return {
