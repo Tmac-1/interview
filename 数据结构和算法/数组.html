@@ -29,7 +29,7 @@
             return end;
           }
           let mid = Math.ceil((start + end) / 2);
-          if (num == arr[mid]) {
+          if (num == arr[mid]) {  // 可能存在数组中好几个被选中的数
             let findArr = [];
             findArr.push(mid);
             let tem = mid;
