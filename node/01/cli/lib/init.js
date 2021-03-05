@@ -32,15 +32,15 @@ module.exports = async name => {
     log(data)
     log(`创建项目： ${name}`)
     // 初始化
-    await clone('github:su37josephxia/vue-template', '../'+ name)
-    // await clone('github:su37josephxia/vue-template',name)
+    // await clone('github:su37josephxia/vue-template', '../'+ name)
+    await clone('github:su37josephxia/vue-template',name)
     // 安装依赖
     log('安装依赖....')
-    // await spawn('cnpm',['install'],{cwd:`./${name}`})
-    await spawn('cnpm install', {
-        stdio: 'inherit',
-        shell: true,
-        cwd:`../${name}`
-      })
+    await spawn('cnpm',['install'],{cwd:`./${name}`})
+    // await spawn('cnpm install', {
+    //     stdio: 'inherit',
+    //     shell: true,
+    //     cwd:`../${name}`
+    //   })
     log('安装完成')
 }

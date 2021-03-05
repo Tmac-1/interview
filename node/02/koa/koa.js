@@ -30,6 +30,11 @@ class Koa {
     use(middleware){
         this.middlewares.push(middleware)
     }
+
+    /**
+     * 1. 将`context`一路传下去给中间件
+     * 2. 将`middleware`中的下一个中间件`fn`作为未来`next`的返回值
+     */
     compose(middlewares) {
         return function (ctx) {
             return dispatch(0)
