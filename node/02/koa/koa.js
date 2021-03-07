@@ -3,6 +3,11 @@ const context = require('./context')
 const request = require('./request')
 const response = require('./response')
 
+/**
+ * koa框架的业务流程是一个完全的异步编程模型，通过ctx上下文对象来贯穿http的上下游。
+ * 所有的请求经过一个中间件的时候都会执行两次，对比 Express 形式的中间件，Koa 的模型可以非常方便的实现后置处理逻辑
+ * https://blog.csdn.net/weixin_44287796/article/details/90702913
+ * */ 
 class Koa {
     constructor(){
         this.middlewares = []
@@ -25,6 +30,11 @@ class Koa {
     use(middleware){
         this.middlewares.push(middleware)
     }
+
+    /**
+     * 1. 将`context`一路传下去给中间件
+     * 2. 将`middleware`中的下一个中间件`fn`作为未来`next`的返回值
+     */
     compose(middlewares) {
         return function (ctx) {
             return dispatch(0)

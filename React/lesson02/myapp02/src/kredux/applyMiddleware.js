@@ -7,14 +7,14 @@ function compose(...funcs){
     if(funcs.length==1){
        return funcs[0]
     }
-    return funcs.reduce(function(total,current){
-       return function(...args){
-        //  console.log('total',args)
-        //  console.log('args',args)
-         return total(current(...args))
-       }
-    })
-    // return funcs.reduce((total,current)=> (...args)=>total(current(...args)) )
+    // return funcs.reduce(function(total,current){
+    //    return function(...args){
+    //     //  console.log('total',args)
+    //     //  console.log('args',args)
+    //      return total(current(...args))
+    //    }
+    // })
+    return funcs.reduce((total,current)=> (...args)=>total(current(...args)) )
  }
 
 export default function applyMiddleware(...middlewares) {

@@ -43,15 +43,18 @@ function compose(middlewares) {
 
 async function fn1(next) {
     console.log('fn1')
-    await next();
+    let res1 = await next();
+    console.log('res1',res1)
     console.log('end fn1')
 }
 
 async function fn2(next) {
     console.log('fn2')
-    await delay()
+    let delay1 = await delay()
+    console.log('delay1',delay1)
     await next()
     console.log('end fn2')
+    return 222
 }
 
 async function fn3(next) {
@@ -61,7 +64,7 @@ async function fn3(next) {
 function delay() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            resolve()
+            resolve(1111)
         }, 2000)
     })
 }
@@ -69,3 +72,4 @@ function delay() {
 const middlewares = [fn1, fn2, fn3];
 const finalFn = compose(middlewares)
 finalFn()
+// fn2()
