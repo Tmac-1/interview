@@ -8,6 +8,7 @@
 // var value = 1;
 // bar();
 
+
 // var value = undefined
 
 // function foo() {
@@ -295,3 +296,4 @@
 //    // return funcs.reduce((total,current)=> (...args)=>total(current(...args)) )
 // }
 // console.log('res',res)
+
