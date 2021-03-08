@@ -26,4 +26,39 @@ function find2(target,array){
 }
 // console.log(find2(4,arr))
 
-// 反转遍历单向链表
+// 两个栈实现一个队列
+const inStack = []
+const outStack = []
+function push(node){
+   inStack.push(node)
+}
+function pop(){
+   if(outStack.length){
+       return outStack.pop()
+   }else {
+       while(inStack.length>0){
+           outStack.push(inStack.pop())
+       }
+       return outStack.pop()
+   }
+}
+
+// 旋转数组 [3,4,5,6,1,2]
+function minNumberInRotateArray(rotateArray){
+   let left = 0
+   let right = rotateArray.length - 1 
+   while(left < right){
+       let mid = Math.floor((left+right)/2) 
+       if(rotateArray[left] < rotateArray[right]){
+           return rotateArray[left]
+       }
+       if(rotateArray[left] < rotateArray[mid]){
+           left = mid
+       }else if(rotateArray[mid] < rotateArray[right]){
+           right = mid
+       }else{
+           ++left
+       }
+   }
+   return rotateArray[left]
+}
