@@ -1,11 +1,13 @@
 // import React from 'react';
 // import ReactDOM from 'react-dom';
 
-import React from './kreact2/index';
-import ReactDOM from './kreact2/react-dom';
-import Component from "./kreact2/Component";
+// import React from './kreact2/index';
+// import ReactDOM from './kreact2/react-dom';
+// import Component from "./kreact2/Component";
 
-// import App from './App';
+import React from './kreact/index';
+import ReactDOM from './kreact/react-dom';
+import Component from "./kreact/Component";
 
 class ClassComponent extends Component {
   static defaultProps = {
@@ -28,15 +30,16 @@ function FunctionComponent(props) {
 const jsx = (
   <div>
     <p className="1231" onClick="1231314" a="111">我是内容</p>
-    <ClassComponent name="class" color="red" />
-    <FunctionComponent name="我是class组件" />
+    <h1>aaa</h1>
+    {/* <ClassComponent name="class" color="red" /> */}
+     {/* <FunctionComponent name="我是class组件" /> */}
     <>
-      <h1>aaa</h1>
+      <h1>ccc</h1>
       <h1>bbb</h1>
     </>
-    {[1, 2].map(item => (
+    {/* {[1, 2].map(item => (
       <React.Fragment key={item}>{item}</React.Fragment>
-    ))}
+    ))} */}
   </div>
 );
 
