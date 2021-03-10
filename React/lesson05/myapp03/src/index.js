@@ -1,13 +1,13 @@
-// import React from 'react';
+// import React,{Component,useState} from 'react';
 // import ReactDOM from 'react-dom';
 
-// import React from './kreact2/index';
-// import ReactDOM from './kreact2/react-dom';
-// import Component from "./kreact2/Component";
+import React from './kreact2/index';
+import ReactDOM,{useState} from './kreact2/react-dom';
+import Component from "./kreact2/Component";
 
-import React from './kreact/index';
-import ReactDOM from './kreact/react-dom';
-import Component from "./kreact/Component";
+// import React from './kreact/index';
+// import ReactDOM from './kreact/react-dom';
+// import Component from "./kreact/Component";
 
 class ClassComponent extends Component {
   static defaultProps = {
@@ -24,15 +24,19 @@ class ClassComponent extends Component {
 }
 
 function FunctionComponent(props) {
-  return <div className="border">函数组件-{props.name}</div>;
+  const [count,setCount] = useState(0)
+  return <div className="border">
+      函数组件-{props.name}
+      <button onClick={()=>setCount(count+1)}>{count}</button>
+  </div>;
 }
 
 const jsx = (
   <div>
-    <p className="1231" onClick="1231314" a="111">我是内容</p>
+    <p className="1231"  a="111">我是内容</p>
     <h1>aaa</h1>
-    {/* <ClassComponent name="class" color="red" /> */}
-     {/* <FunctionComponent name="我是class组件" /> */}
+    <ClassComponent name="class" color="red" />
+     <FunctionComponent name="我是Function组件" />
     <>
       <h1>ccc</h1>
       <h1>bbb</h1>
