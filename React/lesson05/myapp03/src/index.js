@@ -28,6 +28,7 @@ function FunctionComponent(props) {
   return <div className="border">
       函数组件-{props.name}
       <button onClick={()=>setCount(count+1)}>{count}</button>
+      {count % 2 ? <button>click</button> : <span>omg</span>}
   </div>;
 }
 
@@ -36,8 +37,8 @@ const jsx = (
     <p className="1231"  a="111">我是内容</p>
     <h1>aaa</h1>
     <h2>222</h2>
-    {/* <ClassComponent name="class" color="red" />
-     <FunctionComponent name="我是Function组件" /> */}
+    <ClassComponent name="class" color="red" />
+     <FunctionComponent name="我是Function组件" />
     {/* <>
       <h1>ccc</h1>
       <h1>bbb</h1>
