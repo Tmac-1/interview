@@ -47,7 +47,7 @@ function render(vnode, container) {
 
 // 创建node
 function createNode(vnode) {
-  // console.log('vnode',vnode)
+  // console.log('createNode',vnode)
   const { type, props } = vnode;
   let node = null;
   // 判断节点类型
@@ -64,6 +64,7 @@ function createNode(vnode) {
       : updateFunctionComponent(vnode);
   } else {
     node = document.createDocumentFragment();
+    // console.log('createDocumentFragment')
   }
 
   // 把props.children遍历，转成真实dom节点 ，再插入node
@@ -145,6 +146,7 @@ function reconcileChildren_old(children, node) {
 
 // workInProgressFiber Fiber
 function reconcileChildren(workInProgressFiber, children) {
+  // console.log('workInProgressFiber',workInProgressFiber,children)
   //  构建fiber架构
   let prevSlibling = null;
   for (let i = 0; i < children.length; i++) {
@@ -165,10 +167,16 @@ function reconcileChildren(workInProgressFiber, children) {
     } else {
       prevSlibling.sibling = newFiber
     }
-    prevSlibling = newFiber
+    /**
+     * 终于知道为什么第一个元素需要div包裹了，不然第一次循环prevSlibling会null
+    */
+    prevSlibling = newFiber   
+    console.log('prevSlibling',prevSlibling)
   }
 }
-
+/**
+ * 更新原生节点元素 
+ * */ 
 function updateHostComponent(fiber) {
   if (!fiber.node) {
     fiber.node = createNode(fiber)
@@ -187,28 +195,32 @@ function performUnitOfWork(fiber) {
       ? updateClassComponent(fiber)
       : updateFunctionComponent(fiber);
   } else {
-    // 原生标签
-    updateHostComponent(fiber)
+    // 原生标签  这里给fiber加上了child，或者sibling属性
+    updateHostComponent(fiber) 
   }
 
   // 获取下一个子任务(fiber)
   if (fiber.child) {
     return fiber.child
   }
-  let nextFiber = fiber;
-  // console.log('nextFiber',nextFiber)
-  while (nextFiber) {
-    // 找到兄弟
-    if (nextFiber.sibling) {
-      return nextFiber.sibling
-    }
-    // 没有兄弟 往祖先上找
-    nextFiber = nextFiber.return;
-  }
+  // 一个节点的fiber创建完毕，开始寻找上面的节点
+  // let nextFiber = fiber;
+  // while (nextFiber) {
+  //   // 找到兄弟
+  //   if (nextFiber.sibling) {
+  //     return nextFiber.sibling
+  //   }
+  //   /**
+  //    * 没有兄弟 往祖先上找 直到return为underfined，
+  //    * performUnitOfWork函数默认返回underfined,nextUnitWork=underfined,workLoop循环终止
+  //    * */ 
+  //   nextFiber = nextFiber.return;
+  // }
 }
 
 function workLoop(deadline) {
-  // console.log(111,nextUnitWork,deadline.timeRemaining() > 1)
+  // console.log(111,nextUnitWork )
+  // performUnitOfWork(nextUnitWork)
   // 有下一个任务，并且当前帧没有结束
   while (nextUnitWork && deadline.timeRemaining() > 1) {
     // console.log(222)
@@ -236,10 +248,9 @@ function commitWorker(fiber) {
   if (!fiber) return
   // 寻找parentNode 找到最近的有node节点的祖先fiber
   let parentNodeFiber = fiber.return;
-  console.log('parentNodeFiber.node', parentNodeFiber.node)
+  // console.log('parentNodeFiber.node', parentNodeFiber.node)
   while (!parentNodeFiber.node) {
     parentNodeFiber = parentNodeFiber.return
-    // console.log('parentNodeFiber',parentNodeFiber)
   }
   // console.log('parentNodeFiber',parentNodeFiber)
   const parentNode = parentNodeFiber.node;
