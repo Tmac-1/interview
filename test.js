@@ -318,3 +318,21 @@
   
 //   person1.friends.push('taylor');
 //   console.log(person2.friends); // ["daisy", "kelly", "taylor"]
+
+
+// var obj = {
+//    x:1,
+//    a:function(){
+//       console.log(this.x)
+//    }
+// }
+// obj.a()
+
+// var x = 2
+// var obj2 = {
+//       x:1,
+//       a:()=>{
+//          console.log(this.x)
+//       }
+// }
+// obj2.a()
