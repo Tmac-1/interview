@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
     <section>
         <h4> Set </h4>
@@ -16,7 +18,8 @@
     </section>
     <section>
         <h4> Object.assign(target,source) </h4>
-        <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/assign"> 参考地址 </a>
+        <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/assign"> 参考地址
+        </a>
         <p>Object.assign() 方法用于将所有可枚举属性的值从一个或多个源对象复制到目标对象。它将返回目标对象。</p>
         并且会改变目标对象target，不会改变源对象source
         <p style="color:red;">继承属性和不可枚举属性是不能拷贝的</p>
@@ -27,9 +30,9 @@
     </section>
     <script src="https://cdn.bootcss.com/lodash.js/4.17.4/lodash.js"></script>
     <script>
-        console.log([...new Set([1,2,3,1,2,3])])
-        console.log([...new Set( [{id:123,name:1},{id:124,name:1},{id:123,name:1},{id:124,name:1}] )])
-        var obj2 = [{id:123,name:1},{id:124,name:2},{id:123,name:3},{id:124,name:4}]
+        console.log([...new Set([1, 2, 3, 1, 2, 3])])
+        console.log([...new Set([{ id: 123, name: 1 }, { id: 124, name: 1 }, { id: 123, name: 1 }, { id: 124, name: 1 }])])
+        var obj2 = [{ id: 123, name: 1 }, { id: 124, name: 2 }, { id: 123, name: 3 }, { id: 124, name: 4 }]
         console.log(_.uniqBy(obj2, 'id'));
         console.log(obj2)
         const target = { a: 1, b: 2 };
@@ -46,22 +49,62 @@
 
 
         const person = {
-        isHuman: false,
-        printIntroduction: function () {
-            console.log(`My name is ${this.name}. Am I human? ${this.isHuman}`);
-          }
+            isHuman: false,
+            printIntroduction: function () {
+                console.log(`My name is ${this.name}. Am I human? ${this.isHuman}`);
+            }
         };
-       const me = Object.create(person);
-       me.name = "Matthew"; // "name" is a property set on "me", but not on "person"
-       me.isHuman = true; // inherited properties can be overwritten
-       me.printIntroduction();
-      // expected output: "My name is Matthew. Am I human? true"
-      // createObj的实现
-       function createObj(o) {
-            function F(){}
+        const me = Object.create(person);
+        me.name = "Matthew"; // "name" is a property set on "me", but not on "person"
+        me.isHuman = true; // inherited properties can be overwritten
+        me.printIntroduction();
+        // expected output: "My name is Matthew. Am I human? true"
+        // createObj的实现
+        function createObj(o) {
+            function F() { }
             F.prototype = o;
             return new F();
-       }
+        }
+
+        //  判断两个对象的值是否相等 https://www.jb51.net/article/178180.htm
+        let obj1 = {
+            a: 1,
+            b: {
+                c: 2
+            }
+        }
+        let obj2 = {
+            b: {
+                c: 3
+            },
+            a: 1
+        }
+        function isObjectValueEqual(a, b) {
+            // 判断两个对象是否指向同一内存，指向同一内存返回true
+            if (a === b) return true
+            // 获取两个对象键值数组
+            let aProps = Object.getOwnPropertyNames(a)
+            let bProps = Object.getOwnPropertyNames(b)
+            // 判断两个对象键值数组长度是否一致，不一致返回false
+            if (aProps.length !== bProps.length) return false
+            // 遍历对象的键值
+            for (let prop in a) {
+                // 判断a的键值，在b中是否存在，不存在，返回false
+                if (b.hasOwnProperty(prop)) {
+                    // 判断a的键值是否为对象，是则递归，不是对象直接判断键值是否相等，不相等返回false
+                    if (typeof a[prop] === 'object') {
+                        if (!isObjectValueEqual(a[prop], b[prop])) return false
+                    } else if (a[prop] !== b[prop]) {
+                        return false
+                    }
+                } else {
+                    return false
+                }
+            }
+            return true
+        }
+        console.log(isObjectValueEqual(obj1, obj2)) // false
     </script>
 </body>
+
 </html>

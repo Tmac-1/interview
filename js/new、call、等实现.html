@@ -16,27 +16,27 @@
         // 它使this指向新创建的对象。。
         // 通过new创建的每个对象将最终被[[Prototype]]链接到这个函数的prototype对象上。
         // 如果函数没有返回对象类型Object(包含Functoin, Array, Date, RegExg, Error)，那么new表达式中的函数调用将返回该对象引用。
-    //     function Person(name,job){
-    //         this.name = name;
-    //         this.job = job
-    //     }
-    //     function New(func) {
-    //       var res = {};
-    //       if(func.prototype !== null){
-    //           res.__proto__ = func.prototype
-    //       }
-    //       console.log('res',res)
-    //       var ret = func.apply(res,Array.prototype.slice.call(arguments,1));
-    //       console.log('res',res)
-    //       if(typeof ret == 'object' || typeof ret == 'function' && typeof ret !== null){
-    //           return ret;
-    //       }
-    //       return res;
-    //    }
-    //    var obj01 = new Person('Tmac-1','火箭队');
-    //    console.log(obj01)
-    //    var obj02 = New(Person,'Tmac-1','火箭队')
-    //    console.log(obj02)
+        function Person(name,job){
+            this.name = name;
+            this.job = job
+        }
+        function New(func) {
+          var res = {};
+          if(func.prototype !== null){
+              res.__proto__ = func.prototype
+          }
+        //   console.log('res',res)
+          var ret = func.apply(res,Array.prototype.slice.call(arguments,1));
+        //   console.log('res',res)
+          if(typeof ret == 'object' || typeof ret == 'function' && typeof ret !== null){
+              return ret;
+          }
+          return res;
+       }
+       var obj01 = new Person('Tmac-1','火箭队');
+       console.log(obj01)
+       var obj02 = New(Person,'Tmac-1','火箭队')
+       console.log(obj02)
 
 
     // call 和 apply 的实现
@@ -62,7 +62,7 @@
     boo.call2(foo,"火箭","男")
     console.log('foo',foo)
 
-    // bind的实现  https://blog.csdn.net/smallsun_229/article/details/80298147
+    // bind的实现  https://blog.csdn.net/smallsun_229/article/details/80298147 https://github.com/mqyqingfeng/Blog/issues/12
     Function.prototype.bind2 = function(content) {
         if(typeof this != "function") {
             throw Error("not a function")
@@ -73,9 +73,9 @@
         // console.log('this',this)
         let args = [...arguments].slice(1);
         let resFn = function() {
-            console.log('this',this)
+            // console.log('this',this) 这里的this指向最后的new 实例化构造出来的对象
             // console.log('content',content,args.concat(...arguments))
-            console.log(this instanceof resFn)
+            // console.log(this instanceof resFn)
             return fn.apply(this instanceof resFn ? this : content,args.concat(...arguments) )
         }
         function tmp() {}
@@ -112,39 +112,39 @@
     //  console.log( YAxisPoint.prototype.constructor  )
 
     // 红绿灯问题Promise
-    // function red(){
-    //     console.log('red');
-    // }
-    // function green(){
-    //     console.log('green');
-    // }
-    // function yellow(){
-    //     console.log('yellow');
-    // }
-    // var light = function(timmer, cb){
-    //     return new Promise(function(resolve, reject) {
-    //         console.log('light')
-    //         setTimeout(function() {
-    //             cb();
-    //             resolve();
-    //         }, timmer);
-    //     });
-    // };
-    // var step = function() {
-    //     Promise.resolve().then(function(){
-    //         // console.log('111')
-    //         return light(3000, red);
-    //     }).then(function(){
-    //         // console.log('222')
-    //         return light(2000, green);
-    //     }).then(function(){
-    //         // console.log('333')
-    //         return light(1000, yellow);
-    //     }).then(function(){
-    //         step();
-    //     });
-    // }
-    // step();
+    function red(){
+        console.log('red');
+    }
+    function green(){
+        console.log('green');
+    }
+    function yellow(){
+        console.log('yellow');
+    }
+    var light = function(timmer, cb){
+        return new Promise(function(resolve, reject) {
+            // console.log('light')
+            setTimeout(function() {
+                cb();
+                resolve();
+            }, timmer);
+        });
+    };
+    var step = function() {
+        Promise.resolve().then(function(){
+            // console.log('111')
+            return light(3000, red);
+        }).then(function(){
+            // console.log('222')
+            return light(2000, green);
+        }).then(function(){
+            // console.log('333')
+            return light(1000, yellow);
+        }).then(function(){
+            step();
+        });
+    }
+    step();
 
     </script>
 </body>
