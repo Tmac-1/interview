@@ -47,7 +47,7 @@
     // 如果不传入参数，默认指向为 window
     Function.prototype.call2 = function( content = window ){
         // console.log(this)
-        content.fn = this;
+        content.fn = this; // this是boo函数
         var arg = [...arguments].slice(1);
         let result = content.fn(...arg);
         delete content.fn;
