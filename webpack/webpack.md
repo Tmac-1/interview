@@ -1,9 +1,8 @@
-webpack 是一个打包模块化的JavaScript的工具，它会从入口模块出发，识别出源码中的模块化导入语句，
+> webpack 是一个打包模块化的JavaScript的工具，它会从入口模块出发，识别出源码中的模块化导入语句，
 递归的找出入口文件的所有依赖，将入口和其他所有的依赖打包到一个单独的文件中
 
-webpack是基于nodejs的,所以要基于CommonJS规范导出一个对象
-
-webpack不适用于构建JavaScript库，因为不够纯碎，会打包出来一个bootstrap函数
+1. webpack是基于nodejs的,所以要基于CommonJS规范导出一个对象
+2. webpack不适用于构建JavaScript库，因为不够纯碎，会打包出来一个bootstrap函数
 
 Plugins可以在webpack运行到某个阶段的时候，帮你做一些事情，类似于生命周期的概念
 扩展插件，在webpack构建流程中的特定时机注入扩展逻辑来改变构建结果或者你想做的事情。
@@ -15,6 +14,12 @@ plugin要比loader稍微复杂一些，在webpack的源码中，用plugin的机�
 设计模式
   事件驱动  发布订阅
 plugin是一个类，里面包含一个apply函数，接收一个参数，compiler
+
+
+
+loader: webpack 只能理解 JavaScript 和 JSON 文件，这是 webpack 开箱可用的自带能力。
+       loader 让 webpack 能够去处理其他类型的文件，并将它们转换为有效 模块，以供应用程序使用，以及被添加到依赖图中。
+
 
 babel-loader 负责和webpack搭建桥梁
 babel-core 是核心代码，提供很多api，转ast语法树等

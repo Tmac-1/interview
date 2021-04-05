@@ -16,7 +16,7 @@ module.exports = class Complier {
           const item = this.modules[i];
           const { dependcies } = item;
           if(dependcies){
-              for(let j in dependcies){ // 递归分析依赖
+              for(let j in dependcies){ // 递归分析依赖，可能好几个模块，所以用for in 循环
                   this.modules.push(this.build(dependcies[j]))
               }
           }
@@ -29,7 +29,7 @@ module.exports = class Complier {
               code: item.code
           }
       })
-      // console.log(obj)
+      console.log('最终数据',obj) // 形成{路径：代码块}的对象
       //  生成文件
       this.file(obj)
     }
@@ -41,11 +41,12 @@ module.exports = class Complier {
      * 可以在浏览器执行的代码
      * */ 
     build(entryFile) {
-    //   console.log('entryFile',entryFile)
+      console.log('entryFile',entryFile)
       let ast = getAst(entryFile);
       let dependcies = getDependencies(ast, entryFile);
+      console.log('dependcies',dependcies)
       let code = getCode(ast)
-    //   console.log(code)
+      console.log('code',code)
       return {
           filename:entryFile,
           dependcies,

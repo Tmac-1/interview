@@ -1,4 +1,5 @@
 // https://github.com/sisterAn/JavaScript-Algorithms/issues/9
+// 利用 Map 既能保存键值对，并且能够记住键的原始插入顺序
 class LRUCashed{
     constructor(max){
         this.max=max;
@@ -20,7 +21,8 @@ class LRUCashed{
         if(this.cashed.has(key)){
             this.cashed.delete(key) //存在就更新
         }else if(this.cashed.size>=this.max){
-            // console.log('----2',this.cashed.keys().next())
+            // console.log('----2',this.cashed.keys().next()) 
+            // keys返回遍历器对象  next方法返回一个对象，表示当前数据成员的信息。这个对象具有value和done两个属性，
             this.cashed.delete(this.cashed.keys().next().value) //map的第一位，是不常用元素 
         }
          this.cashed.set(key,{key,num})
