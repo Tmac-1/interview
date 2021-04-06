@@ -27,3 +27,4 @@ babel-polyfill 提供更多语法转换
 多页面打包 ：entry可以定义一个对象，plugins可以写多个htmlWebpackPlugins
 
 > 参考链接 https://mp.weixin.qq.com/s/wm_7RvwIQxSow2K5IxZDvw
+    https://juejin.cn/post/6909719159773331463/#heading-7
