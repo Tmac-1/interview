@@ -336,3 +336,9 @@
 //       }
 // }
 // obj2.a()
+async function test(){
+   let res1 = await Promise.all([1,2,3])
+   return res1
+}
+let res = await test()
+console.log(res)

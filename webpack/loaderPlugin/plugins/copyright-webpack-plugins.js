@@ -6,7 +6,7 @@ class CopyrightWebapckPlugin {
     apply(complier){
         // emit 生成资源文件到输出目录之前
        complier.hooks.emit.tapAsync(
-           "CopyrightWebapckPlugin",
+           "CopyrightWebapckPlugin111",
            (compilation,cb)=>{
               compilation.assets["copyright.txt"] = {
                   // 文件内容   
@@ -23,9 +23,9 @@ class CopyrightWebapckPlugin {
            }
        );
        // 同步的写法
-       complier.hooks.compile.tap("CopyrightWebapckPlugin",compilation=>{
-           console.log('开始了')
-       })
+    //    complier.hooks.compile.tap("CopyrightWebapckPlugin",compilation=>{
+    //        console.log('开始了')
+    //    })
     }
 }
 module.exports = CopyrightWebapckPlugin;
