@@ -24,7 +24,12 @@ babel-core 是核心代码，提供很多api，转ast语法树等
 babel-preset-env 负责真正的转换工作，兼容各版本的语法特性，把es6转es5，但是支持的并不全
 babel-polyfill 提供更多语法转换
 
-
 多页面打包 ：entry可以定义一个对象，plugins可以写多个htmlWebpackPlugins
 
-> 参考链接 https://mp.weixin.qq.com/s/wm_7RvwIQxSow2K5IxZDvw
+- module chunk bundle 区别
+  module，chunk 和 bundle 其实就是同一份逻辑代码在不同转换场景下的取了三个名字，我们直接写出来的是 module，webpack 处理时是 chunk，最后生成浏览器可以直接运行的 bundle。
+   > https://www.cnblogs.com/skychx/p/webpack-module-chunk-bundle.html
+
+> 参考链接 
+>  1. 面试题 https://mp.weixin.qq.com/s/wm_7RvwIQxSow2K5IxZDvw
+>  2. b站基础知识点 http://www.woc12138.com/article/45
