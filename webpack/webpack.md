@@ -2,9 +2,8 @@
 > webpack 是一个打包模块化的JavaScript的工具，它会从入口模块出发，识别出源码中的模块化导入语句，
 递归的找出入口文件的所有依赖，将入口和其他所有的依赖打包到一个单独的文件中
 
-webpack是基于nodejs的,所以要基于CommonJS规范导出一个对象
-
-webpack不适用于构建JavaScript库，因为不够纯碎，会打包出来一个bootstrap函数
+1. webpack是基于nodejs的,所以要基于CommonJS规范导出一个对象
+2. webpack不适用于构建JavaScript库，因为不够纯碎，会打包出来一个bootstrap函数
 
 ### Plugins
 Plugins可以在webpack运行到某个阶段的时候，帮你做一些事情，类似于生命周期的概念
@@ -33,3 +32,4 @@ babel-polyfill 提供更多语法转换
 > 参考链接 
 >  1. 面试题 https://mp.weixin.qq.com/s/wm_7RvwIQxSow2K5IxZDvw
 >  2. b站基础知识点 http://www.woc12138.com/article/45
+>  3. b站进阶知识点 https://juejin.cn/post/6909719159773331463/#heading-7

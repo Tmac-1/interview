@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
     <a href="https://www.jianshu.com/p/c51d63028371"> 参考链接 </a>
     <a href="https://blog.csdn.net/qq_36157085/article/details/92378514"> ~~ 运算符，常用来取整 </a>
+
 </body>
 <script>
     function sumBigNumber(a, b) {
@@ -23,7 +26,24 @@
         }
         console.log(res)
         // return res.replace(/^0+/, '');
+    }
+    sumBigNumber('100000000000002222', '111111'); // 100000000000113333
+
+    // js小数精度丢失问题   进度丢失可能出现在进制转化和对阶运算  https://juejin.cn/post/6844903680362151950
+    function instance_of(left, right) {
+        const RP = right.prototype; // 构造函数的原型
+        while (true) {
+            if (left === null) {
+                return false;
+            }
+            if (left === RP) { // 一定要严格比较
+                return true;
+            }
+            left = left.__proto__; // 沿着原型链重新赋值
         }
-        sumBigNumber('100000000000002222', '111111'); // 100000000000113333
+    }
+
+
 </script>
+
 </html>
