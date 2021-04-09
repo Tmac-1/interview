@@ -25,11 +25,16 @@ babel-polyfill 提供更多语法转换
 
 多页面打包 ：entry可以定义一个对象，plugins可以写多个htmlWebpackPlugins
 
-- module chunk bundle 区别
+- ##### module chunk bundle 区别
   module，chunk 和 bundle 其实就是同一份逻辑代码在不同转换场景下的取了三个名字，我们直接写出来的是 module，webpack 处理时是 chunk，最后生成浏览器可以直接运行的 bundle。
    > https://www.cnblogs.com/skychx/p/webpack-module-chunk-bundle.html
 
+- ##### compiler 和 compliation 区别
+ 不同点是 Compiler 是每个 Webpack 的配置，对应一个 Compiler 对象，记录着整个 Webpack 的生命周期；在构建的过程中，每次构建都会产生一次Compilation，Compilation 则是构建周期的产物。
+ https://blog.csdn.net/weixin_42614080/article/details/110507675
+ 
 > 参考链接 
 >  1. 面试题 https://mp.weixin.qq.com/s/wm_7RvwIQxSow2K5IxZDvw
 >  2. b站基础知识点 http://www.woc12138.com/article/45
 >  3. b站进阶知识点 https://juejin.cn/post/6909719159773331463/#heading-7
+>
