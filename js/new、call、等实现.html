@@ -9,8 +9,7 @@
    <input id="file" type="file" name="file"/>
 <body>
     <script>
-        // 箭头函数  https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions
-        /**
+        /** 箭头函数  https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions
          *  箭头函数表达式的语法比函数表达式更简洁，并且没有自己的this，arguments，super或new.target。
          *  箭头函数不会创建自己的this,它只会从自己的作用域链的上一层继承this
          *  不绑定arguments
@@ -19,13 +18,13 @@
             console.log(arguments[0])  // 会报错
         }
         
-
-        // new 操作  https://www.cnblogs.com/shuizhongyu111/p/7355383.html
-        // 它创建了一个全新的对象。
-        // 它会被执行[[Prototype]]（也就是__proto__）链接。
-        // 它使this指向新创建的对象。。
-        // 通过new创建的每个对象将最终被[[Prototype]]链接到这个函数的prototype对象上。
-        // 如果函数没有返回对象类型Object(包含Functoin, Array, Date, RegExg, Error)，那么new表达式中的函数调用将返回该对象引用。
+        /** new 操作  https://www.cnblogs.com/shuizhongyu111/p/7355383.html
+         *  它创建了一个全新的对象。
+         *  它会被执行[[Prototype]]（也就是__proto__）链接。
+         *  它使this指向新创建的对象。。
+         *  通过new创建的每个对象将最终被[[Prototype]]链接到这个函数的prototype对象上。
+         *  如果函数没有返回对象类型Object(包含Functoin, Array, Date, RegExg, Error)，那么new表达式中的函数调用将返回该对象引用。
+         * */ 
         function Person(name,job){
             this.name = name;
             this.job = job
@@ -35,8 +34,8 @@
           if(func.prototype !== null){
               res.__proto__ = func.prototype
           }
-        //   console.log('res',res)
-          var ret = func.apply(res,Array.prototype.slice.call(arguments,1));
+        //   console.log('res',res) 
+          var ret = func.apply(res,[...arguments].slice(1));
         //   console.log('res',res)
           if(typeof ret == 'object' || typeof ret == 'function' && typeof ret !== null){
               return ret;
@@ -49,12 +48,13 @@
        console.log(obj02)
 
 
-    // call 和 apply 的实现
-    // call核心：
-    // 将函数设为对象的属性
-    // 执行&删除这个函数
-    // 指定this到函数并传入给定参数执行函数
-    // 如果不传入参数，默认指向为 window
+    /** call 和 apply 的实现
+     *  call核心：
+     *  将函数设为对象的属性
+     *  执行&删除这个函数
+     *  指定this到函数并传入给定参数执行函数
+     *  如果不传入参数，默认指向为 window
+     * */ 
     Function.prototype.call2 = function( content = window ){
         // console.log(this)
         content.fn = this; // this是boo函数
@@ -72,7 +72,11 @@
     boo.call2(foo,"火箭","男")
     console.log('foo',foo)
 
-    // bind的实现  https://blog.csdn.net/smallsun_229/article/details/80298147 https://github.com/mqyqingfeng/Blog/issues/12
+    /**
+     * bind的实现  https://blog.csdn.net/smallsun_229/article/details/80298147
+     * https://github.com/mqyqingfeng/Blog/issues/12
+     * 各类继承的优缺点 https://github.com/mqyqingfeng/Blog/issues/16
+     * */  
     Function.prototype.bind2 = function(content) {
         if(typeof this != "function") {
             throw Error("not a function")
@@ -88,39 +92,26 @@
             // console.log(this instanceof resFn)
             return fn.apply(this instanceof resFn ? this : content,args.concat(...arguments) )
         }
-        function tmp() {}
+        function tmp() {}  // 
         tmp.prototype = this.prototype;
         resFn.prototype = new tmp();
         // console.log('resFn',resFn)
         return resFn;
     }
 
-//     var module02 = {
-//             x: 42,
-//             getX: function(a,b) {
-//                 console.log(a,b)
-//                 return this.x;
-//             }
-//     }
-//    var unboundGetX = module02.getX;   
-//    var boundGetX = unboundGetX.bind2(module02,1);
-//    boundGetX(2);
-     
-    //  function Point (x,y){
-    //      this.x = x;
-    //      this.y = y;
-    //  }
-
-    //  Point.prototype.toString =  function(){
-    //      return this.x + ',' + this.y
-    //  }
-
-    //  var emptyObj = {a:111};
-    //  var YAxisPoint = Point.bind2(emptyObj,1);
-    //  var ret = new YAxisPoint(2);
-    //  console.log(ret.toString())
-    //  console.log( YAxisPoint.prototype.constructor  )
-
+    function instance_of(left, right) {
+        const RP = right.prototype; // 构造函数的原型
+        while (true) {
+            if (left === null) {
+                return false;
+            }
+            if (left === RP) { // 一定要严格比较
+                return true;
+            }
+            left = left.__proto__; // 沿着原型链重新赋值
+        }
+    }
+    
     // 红绿灯问题Promise
     function red(){
         console.log('red');
@@ -133,7 +124,6 @@
     }
     var light = function(timmer, cb){
         return new Promise(function(resolve, reject) {
-            // console.log('light')
             setTimeout(function() {
                 cb();
                 resolve();
@@ -142,13 +132,10 @@
     };
     var step = function() {
         Promise.resolve().then(function(){
-            // console.log('111')
             return light(3000, red);
         }).then(function(){
-            // console.log('222')
             return light(2000, green);
         }).then(function(){
-            // console.log('333')
             return light(1000, yellow);
         }).then(function(){
             step();
