@@ -87,8 +87,42 @@
       console.log(legalBrackets("function a (){console.log(1111)}"))// true
       //  https://blog.csdn.net/mrdeng_web2018/article/details/108426604 
       // 链表 Hash表
-      // 最少硬币找钱问题 change = new Change([1,5,10,20,50,100]) change.makeChange(13)  动态规划：动态调整全局最优解 贪心算法：只考虑局部最优解
-      // https://www.jianshu.com/p/eb7bee8528cc
+      /**
+       * 最少硬币找钱问题 change = new Change([1,5,10,20,50,100]) change.makeChange(13)  
+       * 动态规划：动态调整全局最优解 贪心算法：只考虑局部最优解
+       * https://www.jianshu.com/p/eb7bee8528cc
+       * */ 
+      class minChangeQues {
+          constructor (coins) {
+              this.coins = coins
+              this.cache = {}
+          }
+          changeCoins (amount) {
+              let me = this
+              if (this.cache[amount]) {
+                  return this.cache[amount]
+              }
+              let min = [], newMin, newAmount
+              for(let i in this.coins) {
+                  let coin = this.coins[i]
+                  newAmount = amount - coin // 先找一个试试，看看还剩多少钱
+                  if (newAmount >= 0) { // 没找完，再找一次
+                      newMin = me.changeCoins(newAmount)  // 返回的一个数组，这里体现动态规划
+                  }
+                  /** newMin.length 数组长度大于0，因为 changeCoins(0) 是空数组 
+                   *  当 newMin.length = 0 ，说明可能上个硬币能被整数减少 
+                   *  例如 5-5 此时newMin.length == 0 但是 newAmount=0  !newAmount=true，
+                   *  此时进入判断条件，coin = 5 newMin是个空数组
+                   * */
+                  if (newAmount >= 0 && (newMin.length || !newAmount)) {  // 
+                      min = [coin].concat(newMin)
+                  }
+              }
+              return (this.cache[amount] = min)
+          }
+      }
+      let temp = new minChangeQues([1,5,10,25])
+      console.log(temp.changeCoins());
       // 背包问题
       // 斐波拉契数列(爬楼梯，10层楼梯，每次只能走一级或者两级，一共多少中走法)
       // 暴力斐波拉契
