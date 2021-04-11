@@ -11,7 +11,7 @@ class LRUCashed{
             this.cashed.delete(key)
             this.cashed.set(key,value)
             // console.log('---.1',this.cashed)
-            return this.cashed.get(key).key
+            return this.cashed.get(key)
         }else{
             return -1;
         }
@@ -22,10 +22,10 @@ class LRUCashed{
             this.cashed.delete(key) //存在就更新
         }else if(this.cashed.size>=this.max){
             // console.log('----2',this.cashed.keys().next()) 
-            // keys返回遍历器对象  next方法返回一个对象，表示当前数据成员的信息。这个对象具有value和done两个属性，
+            // keys返回遍历器对象，遍历器对象下面有next方法，执行next方法返回一个带{value:"",done:false}的对象，表示当前数据成员的信息。
             this.cashed.delete(this.cashed.keys().next().value) //map的第一位，是不常用元素 
         }
-         this.cashed.set(key,{key,num})
+         this.cashed.set(key,num)
     }
 }
 
