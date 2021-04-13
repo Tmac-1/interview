@@ -22,7 +22,11 @@
 // const fn = compose(add, square)
 // console.log(fn(1, 2))
 
-// 责任链模式 洋葱模型 react中redux的实现
+/**
+ *  责任链模式 洋葱模型 react中redux的实现
+ *  将`middleware`中的下一个中间件`fn`作为未来`next`的返回值
+ * */
+
 function compose(middlewares) {
     return function () {
         return dispatch(0)
