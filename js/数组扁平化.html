@@ -45,5 +45,16 @@
      }
      console.log(flattern(arr))
     //  console.log(arr)
+    function  flattern2(array) {
+        let  newArray = [];
+        for (var  i = 0; i < array.length - 1; i++) {
+            if (array[i] instanceof  Array) {//判断是不是数组
+                newArray = newArray.concat(flattern2(array[i]))
+            } else {
+                newArray.push(array[i])
+            }
+        }
+        return  newArray;
+   }
    </script>
 </html>
