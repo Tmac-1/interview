@@ -8,7 +8,6 @@
 // var value = 1;
 // bar();
 
-
 // var value = undefined
 
 // function foo() {
@@ -21,8 +20,6 @@
 //  value = 1;
 // bar();
 
-
-
 // function foo() {
 //     return
 //         {
@@ -30,7 +27,6 @@
 //         }
 // }
 // console.log( foo() )
-
 
 // var props={}
 // var stateProps={num:1}
@@ -47,8 +43,6 @@
 // })
 // // Person.name = 111
 // console.log(Person.name)
-
-
 
 // let obj = {
 //     a:1
@@ -69,9 +63,8 @@
 //   setTimeout(log, 100);
 // }
 
-
 // var  arr = [3,4,2,5,1,8,4,9,9,2]
-      //        4
+//        4
 // function bubleSort(arr) {
 //   for (var i = 0; i < arr.length - 1; i++) {
 //     for (var j = i + 1; j < arr.length; j++) {
@@ -82,45 +75,45 @@
 //   }
 //   return arr
 // }
-// console.log(bubleSort(arr)) 
-    // i=2 j=1 j+1=2
-   //  function insertSort(arr){
-   //     for (var i=1; i<arr.length; i++){
-   //        var j = i-1;
-   //        var tem = arr[i];
-   //        while(j>=0 && arr[j]>tem){
-   //              arr[j+1]=arr[j]
-   //              j--
-             
-   //        }
-   //        arr[j+1]=tem;
-   //     }
-   //     return arr
-   //  }
-   //  console.log(insertSort(arr))
-   // function quickSort(arr){
-   //    if(arr.length<=1){
-   //       return arr
-   //    }
-   //    let index = Math.floor(arr.length/2);
-   //    var tem = arr.splice(index,1) 
-   //    var left = [], right = []
-   //    for(var i=0;i<arr.length;i++){
-   //       if(arr[i]>tem){
-   //          right.push(arr[i])
-   //       }else{
-   //          left.push(arr[i])
-   //       }
-   //    }
-   //    return quickSort(left).concat(tem,quickSort(right))
-   // }
-   // console.log(quickSort(arr))
+// console.log(bubleSort(arr))
+// i=2 j=1 j+1=2
+//  function insertSort(arr){
+//     for (var i=1; i<arr.length; i++){
+//        var j = i-1;
+//        var tem = arr[i];
+//        while(j>=0 && arr[j]>tem){
+//              arr[j+1]=arr[j]
+//              j--
+
+//        }
+//        arr[j+1]=tem;
+//     }
+//     return arr
+//  }
+//  console.log(insertSort(arr))
+// function quickSort(arr){
+//    if(arr.length<=1){
+//       return arr
+//    }
+//    let index = Math.floor(arr.length/2);
+//    var tem = arr.splice(index,1)
+//    var left = [], right = []
+//    for(var i=0;i<arr.length;i++){
+//       if(arr[i]>tem){
+//          right.push(arr[i])
+//       }else{
+//          left.push(arr[i])
+//       }
+//    }
+//    return quickSort(left).concat(tem,quickSort(right))
+// }
+// console.log(quickSort(arr))
 // var i = 1;
 // console.log(++i,i)
 
 // var arr = [1,2,3,4,5]
 // console.log(arr.splice(1,1),arr)
-// console.log(arr.slice(1,2),arr) 
+// console.log(arr.slice(1,2),arr)
 
 // arr.sort((a,b)=>{
 //    return a-b
@@ -137,7 +130,7 @@
 // }
 // shuffle(arr01)
 
-// 
+//
 //  var arr=[1,[2,3],[1,1],[4,[5,6,[7,8]]]]
 //  function flat(arr){
 //     for(var i=0; i<arr.length; i++){
@@ -199,8 +192,7 @@
 //    }
 //    return -1
 // }
-// console.log(binaryFind(3,arr,0,arr.length-1)) 
-
+// console.log(binaryFind(3,arr,0,arr.length-1))
 
 // function legalBrackets(str){
 //    let stack = []
@@ -227,7 +219,6 @@
 // console.log(legalBrackets("{ [ ] }")); //true
 // console.log(legalBrackets("function a (){console.log(1111)}"))// true
 
-
 // 找钱问题 change = new Change([1,5,10,20,50,100]) change.makeChange(13)
 
 // class Change {
@@ -247,15 +238,14 @@
 //          }
 //          if(leftAmount>=0 && (leftArr.length || !leftAmount)){
 //             // min = [this.coins[i]].concat(leftArr)
-//             min = leftArr.concat([this.coins[i]]) 
+//             min = leftArr.concat([this.coins[i]])
 //          }
 //       }
 //       return this.caches[amount]= min
 //    }
 // }
-// var change = new Change([1,5,10,20,50,100]) 
-// console.log(change.makeChange(13)) 
-
+// var change = new Change([1,5,10,20,50,100])
+// console.log(change.makeChange(13))
 
 // function a(){
 //    console.log(1)
@@ -307,18 +297,17 @@
 //       name: 'kevin',
 //       friends: ['daisy', 'kelly']
 //   }
-  
+
 // //   var person1 = createObj(person);
 // //   var person2 = createObj(person);
 // var person1 = Object.create(person);
 // var person2 = Object.create(person);
-  
+
 //   person1.name = 'person1';
 //   console.log(person2.name); // kevin
-  
+
 //   person1.friends.push('taylor');
 //   console.log(person2.friends); // ["daisy", "kelly", "taylor"]
-
 
 // var obj = {
 //    x:1,
@@ -336,9 +325,39 @@
 //       }
 // }
 // obj2.a()
-async function test(){
-   let res1 = await Promise.all([1,2,3])
-   return res1
-}
-let res = await test()
-console.log(res)
+
+// async function test(){
+//    let res1 = await Promise.all([1,2,3])
+//    return res1
+// }
+// let res = await test()
+// console.log(res)
+
+new Promise((resolve, reject) => {
+  reject(2);
+})
+  .catch(
+    (res) => {
+       console.log('res1',res) 
+       return 1
+    },
+    (res) => {console.log('res2',res)}
+  )
+  .then(
+    (res) => console.log(res),
+    (res) => console.log(res)
+  );
+
+  new Promise((resolve, reject) => {
+    reject(2);
+  }).then(
+      (res) => {console.log("res1",res)},
+      // (res) => {console.log("res2",res)}
+  ).catch(
+     (res) => {
+        console.log('cres1',res) 
+        return 1
+     }
+   )
+
+ 

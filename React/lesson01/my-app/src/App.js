@@ -1,16 +1,18 @@
-import React, {Component} from 'react';
-import ContextPage from './pages/ContextPage';
-import  Demo  from './pages/hooks';
+import React, { Component } from "react";
+import ContextPage from "./pages/ContextPage";
+import { Demo, DemoState, DemoState2, DemoUseMemo } from "./pages/hooks";
 
 class App extends Component {
-  render(){
+  render() {
     return (
       <div className="App">
-        111
-          <Demo/>
-          <ContextPage/>
+        <Demo />
+        <DemoState />
+        <DemoState2 />
+        <DemoUseMemo />
+        <ContextPage />
       </div>
-    )
+    );
   }
 }
 
